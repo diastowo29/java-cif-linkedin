@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin | Instagram</title>
+<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="row" style="padding: 20px;">
+		<div class="col-12" align="center">
+			<form action="getToken/" method="get">
+				<button type="submit" class="btn btn-primary" value="testing" onclick="popup()">Login with Facebook</button>
+			</form>
+		</div>
+	</div>
+	<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script>
+	    function popup() {
+	        window.open("https://www.facebook.com/v2.11/dialog/oauth?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&state={\"{test:123}\"}", 'window', 'width=600,height=400');
+	    	
+	    }
+	</script>
+</body>
+</html>
