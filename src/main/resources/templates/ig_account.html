@@ -10,7 +10,7 @@
 		<div class="row" style="padding: 40px;">
 			<div class="col-12" align="center">
 				<p>Select your account..</p>
-				<div class="list-group" th:each="namelist : ${namelist}">
+				<div class="list-group" th:each="namelist : ${igList}">
 					<a th:href="@{'submittoken?getId=' + ${namelist.id}}" class="list-group-item" th:text="${namelist.name}"></a>
 				</div>
 			</div>

@@ -1,17 +1,17 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @SpringBootApplication
@@ -21,9 +21,7 @@ public class Instagram {
 	String fbApiDomain = "https://graph.facebook.com/v3.0";
 	String getAccessToken = fbApiDomain
 			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
-	String getIgAccount = fbApiDomain
-			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
-	String getAccounts = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name";
+	String getIgAccountsId = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
 	@RequestMapping(method = RequestMethod.GET)
 	String indexGet() {
@@ -41,32 +39,41 @@ public class Instagram {
 	@RequestMapping("/getToken/")
 	String getToken() {
 		System.out.println("GET GETTOKEN");
-		return "getToken";
+		return "get_token";
+	}
+	
+	@RequestMapping("/submittoken")
+	String finalSubmit(@RequestParam(name = "id") String igId, Model model) {
+		return "final_submit";
 	}
 
 	@RequestMapping("/submit")
-	String submitToken(@RequestParam("token") String token) {
+	String submitToken(@RequestParam("token") String token, Model model) {
 		System.out.println("GET SUBMIT TOKEN: " + token);
 		String accToken = "";
+		Calling calling = new Calling();
+
+		HashMap<String, String> hashMap = new HashMap<>();
+		ArrayList<HashMap<String, String>> hashList = new ArrayList<>();
 		try {
 
-			ObjectMapper mapper = new ObjectMapper();
-			HashMap<String, String> response = new HashMap<>();
-			Calling calling = new Calling();
-			String output = calling.callingGet(getAccessToken + token);
-			System.out.println(output);
-			response = mapper.readValue(output, new TypeReference<HashMap<String, String>>() {
-			});
-			accToken = response.get("access_token");
+			JSONObject output = calling.callingGet(getAccessToken + token);
+			accToken = output.getString("access_token");
 
 			try {
 
-				ObjectMapper mapperAcc = new ObjectMapper();
-				HashMap<String, String> responseAcc = new HashMap<>();
-				String outputAcc = calling.callingGet(getAccounts + accToken);
-				System.out.println(outputAcc);
-				responseAcc = mapperAcc.readValue(outputAcc, new TypeReference<HashMap<String, String>>() {
-				});
+				JSONObject outputAcc = calling.callingGet(getIgAccountsId + accToken);
+				JSONArray igData = outputAcc.getJSONArray("data");
+				if (outputAcc != null) {
+					for (int i = 0; i < igData.length(); i++) {
+						hashMap = new HashMap<>();
+						hashMap.put("name", igData.getJSONObject(i).getString("name"));
+						hashMap.put("id",
+								igData.getJSONObject(i).getJSONObject("connected_instagram_account").getString("id"));
+						hashMap.put("token", accToken);
+						hashList.add(hashMap);
+					}
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -75,15 +82,27 @@ public class Instagram {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return "igAccounts";
+		model.addAttribute("igList", hashList);
+		return "ig_account";
 	}
 
 	@RequestMapping("/testing")
-	ModelAndView testingMethod() {
-		ModelAndView mav = new ModelAndView("testing");
+	String testingMethod(@RequestParam(name = "name", defaultValue = "dias") String name, Model model) {
+		ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
-		return mav;
+		HashMap<String, String> hashMap = new HashMap<>();
+		hashMap.put("name", "amizah");
+		hashMap.put("id", "1");
+		list.add(hashMap);
+
+		hashMap = new HashMap<>();
+		hashMap.put("name", "diastowo");
+		hashMap.put("id", "2");
+		list.add(hashMap);
+
+		model.addAttribute("namelist", list);
+
+		return "testing";
 	}
 
 }

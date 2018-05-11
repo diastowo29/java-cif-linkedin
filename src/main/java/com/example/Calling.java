@@ -3,13 +3,18 @@ package com.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Calling {
-	public String callingGet(String newUrl) {
-		String response = "";
+	public JSONObject callingGet(String newUrl) {
+		JSONObject response = new JSONObject();
 		try {
 			System.out.println("CALLING GET: " + newUrl);
 			URL url = new URL(newUrl);
@@ -21,14 +26,15 @@ public class Calling {
 				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 			}
 
-			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-			String output = "";
 			System.out.println("Output from Server .... \n");
-			while ((output = br.readLine()) != null) {
-				response = output;
-				System.out.println("2: " + response);
+			BufferedReader rd = new BufferedReader(
+					new InputStreamReader(conn.getInputStream(), Charset.forName("UTF-8")));
+			String jsonText = readUser(rd);
+			if (conn.getResponseCode() != 200) {
+				response = null;
+			} else {
+				response = new JSONObject(jsonText);	
 			}
-			System.out.println("3: " + response);
 
 			conn.disconnect();
 
@@ -40,9 +46,21 @@ public class Calling {
 
 			e.printStackTrace();
 
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+
 		}
 
-		System.out.println("4: " + response);
 		return response;
+	}
+
+	private static String readUser(Reader rd) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		int cp;
+		while ((cp = rd.read()) != -1) {
+			sb.append((char) cp);
+		}
+		return sb.toString();
 	}
 }
