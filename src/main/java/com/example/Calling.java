@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class Calling {
 	public String callingGet(String newUrl) {
-		String output = "";
+		String response = "";
 		try {
 			System.out.println("CALLING GET: " + newUrl);
 			URL url = new URL(newUrl);
@@ -22,11 +22,13 @@ public class Calling {
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-
+			String output = "";
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
-//				System.out.println(output);
+				response = output;
+				System.out.println("2: " + response);
 			}
+			System.out.println("3: " + response);
 
 			conn.disconnect();
 
@@ -40,6 +42,7 @@ public class Calling {
 
 		}
 
-		return output;
+		System.out.println("4: " + response);
+		return response;
 	}
 }

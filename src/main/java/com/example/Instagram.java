@@ -18,8 +18,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/linkedin/")
 public class Instagram {
 	String returnUrl = "";
-	String getAccessToken = "https://graph.facebook.com/v2.11/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
-	String getAccounts = "";
+	String fbApiDomain = "https://graph.facebook.com/v3.0";
+	String getAccessToken = fbApiDomain
+			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
+	String getIgAccount = fbApiDomain
+			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
+	String getAccounts = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name";
 
 	@RequestMapping(method = RequestMethod.GET)
 	String indexGet() {
@@ -43,6 +47,7 @@ public class Instagram {
 	@RequestMapping("/submit")
 	String submitToken(@RequestParam("token") String token) {
 		System.out.println("GET SUBMIT TOKEN: " + token);
+		String accToken = "";
 		try {
 
 			ObjectMapper mapper = new ObjectMapper();
@@ -52,7 +57,20 @@ public class Instagram {
 			System.out.println(output);
 			response = mapper.readValue(output, new TypeReference<HashMap<String, String>>() {
 			});
-			System.out.println(response.get("access_token"));
+			accToken = response.get("access_token");
+
+			try {
+
+				ObjectMapper mapperAcc = new ObjectMapper();
+				HashMap<String, String> responseAcc = new HashMap<>();
+				String outputAcc = calling.callingGet(getAccounts + accToken);
+				System.out.println(outputAcc);
+				responseAcc = mapperAcc.readValue(outputAcc, new TypeReference<HashMap<String, String>>() {
+				});
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
