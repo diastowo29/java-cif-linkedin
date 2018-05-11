@@ -11,6 +11,7 @@ public class Calling {
 	public String callingGet(String newUrl) {
 		String output = "";
 		try {
+			System.out.println("CALLING GET: " + newUrl);
 			URL url = new URL(newUrl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -24,7 +25,7 @@ public class Calling {
 
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
+//				System.out.println(output);
 			}
 
 			conn.disconnect();

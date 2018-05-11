@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @SpringBootApplication
 @RequestMapping("/linkedin/")
-public class Linkedin {
+public class Instagram {
 	String returnUrl = "";
 	String getAccessToken = "https://graph.facebook.com/v2.11/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
 	String getAccounts = "";
@@ -49,8 +49,10 @@ public class Linkedin {
 			HashMap<String, String> response = new HashMap<>();
 			Calling calling = new Calling();
 			String output = calling.callingGet(getAccessToken + token);
+			System.out.println(output);
 			response = mapper.readValue(output, new TypeReference<HashMap<String, String>>() {
 			});
+			System.out.println(response.get("access_token"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
