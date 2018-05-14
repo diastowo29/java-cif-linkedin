@@ -41,6 +41,7 @@ public class Instagram {
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	String indexPost(@RequestParam Map<String, String> paramMap) {
 		returnUrl = paramMap.get("return_url");
+		System.out.println(returnUrl);
 		return "admin";
 	}
 
