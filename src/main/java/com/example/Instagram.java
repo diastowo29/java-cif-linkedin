@@ -4,15 +4,18 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,10 +38,11 @@ public class Instagram {
 		return "admin";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	String indexPost(@RequestBody HashMap<String, String> jsonParam) {
-		System.out.println("POST instagram");
-		returnUrl = jsonParam.get("return_url");
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE })
+	String indexPost(@RequestParam Map<String, String> paramMap) {
+		returnUrl = paramMap.get("email");
 		return "admin";
 	}
 
