@@ -113,7 +113,7 @@ public class Instagram {
 		hashMap.put("author", "Diastowo Faryduana");
 		hashMap.put("version", "v1.0");
 		HashMap<String, String> urlMap = new HashMap<>();
-		urlMap.put("admin_ui", herokuDomain + "instagram/manifest");
+		urlMap.put("admin_ui", herokuDomain + "instagram/");
 		urlMap.put("pull_url", herokuDomain + "instagram/manifest");
 		urlMap.put("channelback_url", herokuDomain + "instagram/manifest");
 		urlMap.put("clickthrough_url", herokuDomain + "instagram/manifest");
