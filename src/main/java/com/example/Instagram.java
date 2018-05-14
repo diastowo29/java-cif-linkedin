@@ -8,6 +8,8 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 @Controller
 @SpringBootApplication
 @RequestMapping("/linkedin/")
 public class Instagram {
+	String herokuDomain = "https://java-cif-linkedin.herokuapp.com/";
 	String returnUrl = "";
 	String fbApiDomain = "https://graph.facebook.com/v3.0";
 	String getAccessToken = fbApiDomain
@@ -46,7 +51,8 @@ public class Instagram {
 	}
 
 	@RequestMapping("/submittoken")
-	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName, @RequestParam(name = "token") String igToken, Model model) {
+	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName,
+			@RequestParam(name = "token") String igToken, Model model) {
 		HashMap<String, String> hashMap = new HashMap<>();
 		hashMap.put("returnUrl", returnUrl);
 		System.out.println("RETURN URL: " + returnUrl);
@@ -99,6 +105,23 @@ public class Instagram {
 		}
 		model.addAttribute("igList", hashList);
 		return "ig_account";
+	}
+
+	@RequestMapping("/manifest")
+	ResponseEntity<Object> manifest() {
+		HashMap<String, Object> hashMap = new HashMap<>();
+		hashMap.put("name", "Instagram Integration");
+		hashMap.put("id", "zendesk-internal-instagram-integration");
+		hashMap.put("author", "Diastowo Faryduana");
+		hashMap.put("version", "v1.0");
+		HashMap<String, String> urlMap = new HashMap<>();
+		urlMap.put("admin_ui", herokuDomain + "linkedin/manifest");
+		urlMap.put("pull_url", herokuDomain + "linkedin/manifest");
+		urlMap.put("channelback_url", herokuDomain + "linkedin/manifest");
+		urlMap.put("clickthrough_url", herokuDomain + "linkedin/manifest");
+		
+		hashMap.put("urls", urlMap);
+		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
 
 	@RequestMapping("/testing")
