@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 @Controller
 @SpringBootApplication
-@RequestMapping("/linkedin/")
+@RequestMapping("/instagram/")
 public class Instagram {
 	String herokuDomain = "https://java-cif-linkedin.herokuapp.com/";
 	String returnUrl = "";
@@ -32,14 +30,14 @@ public class Instagram {
 
 	@RequestMapping(method = RequestMethod.GET)
 	String indexGet() {
-		System.out.println("GET LINKEDIN");
+		System.out.println("GET instagram");
 		returnUrl = "testing";
 		return "admin";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	String indexPost(@RequestBody HashMap<String, String> jsonParam) {
-		System.out.println("POST LINKEDIN");
+		System.out.println("POST instagram");
 		returnUrl = jsonParam.get("return_url");
 		return "admin";
 	}
@@ -115,11 +113,11 @@ public class Instagram {
 		hashMap.put("author", "Diastowo Faryduana");
 		hashMap.put("version", "v1.0");
 		HashMap<String, String> urlMap = new HashMap<>();
-		urlMap.put("admin_ui", herokuDomain + "linkedin/manifest");
-		urlMap.put("pull_url", herokuDomain + "linkedin/manifest");
-		urlMap.put("channelback_url", herokuDomain + "linkedin/manifest");
-		urlMap.put("clickthrough_url", herokuDomain + "linkedin/manifest");
-		
+		urlMap.put("admin_ui", herokuDomain + "instagram/manifest");
+		urlMap.put("pull_url", herokuDomain + "instagram/manifest");
+		urlMap.put("channelback_url", herokuDomain + "instagram/manifest");
+		urlMap.put("clickthrough_url", herokuDomain + "instagram/manifest");
+
 		hashMap.put("urls", urlMap);
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
