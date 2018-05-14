@@ -10,9 +10,12 @@
 		<div class="row" style="padding: 40px;">
 			<div class="col-12" align="center">
 				<p>Confirm your account..</p>
-				<div class="list-group" th:each="namelist : ${igList}">
-					<a th:href="@{'submittoken?getId=' + ${namelist.id}}" class="list-group-item" th:text="${namelist.name}"></a>
-				</div>
+				<form th:action="${metadata.returnUrl}" method="post">
+					<input type="text" class="form-control" id="igName" th:value="${metadata.name}" disabled="true">
+					<input type="hidden" class="form-control" id="igName" th:value="${metadata.metadata}" hidden="true">
+					<input type="hidden" class="form-control" id="igName" th:value="${metadata.returnUrl}" hidden="true">
+					<button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+				</form>
 			</div>
 		</div>
 	</div>

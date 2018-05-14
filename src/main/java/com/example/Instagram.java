@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +28,7 @@ public class Instagram {
 	@RequestMapping(method = RequestMethod.GET)
 	String indexGet() {
 		System.out.println("GET LINKEDIN");
+		returnUrl = "testing";
 		return "admin";
 	}
 
@@ -41,9 +44,21 @@ public class Instagram {
 		System.out.println("GET GETTOKEN");
 		return "get_token";
 	}
-	
+
 	@RequestMapping("/submittoken")
-	String finalSubmit(@RequestParam(name = "id") String igId, Model model) {
+	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName, @RequestParam(name = "token") String igToken, Model model) {
+		HashMap<String, String> hashMap = new HashMap<>();
+		hashMap.put("returnUrl", returnUrl);
+		System.out.println("RETURN URL: " + returnUrl);
+		hashMap.put("igId", igId);
+		try {
+			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		hashMap.put("metadata", "{\"igId\": \"" + igId + "\", \"token\": \"" + igToken + "\"}");
+
+		model.addAttribute("metadata", hashMap);
 		return "final_submit";
 	}
 
