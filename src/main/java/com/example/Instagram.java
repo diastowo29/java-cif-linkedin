@@ -42,7 +42,7 @@ public class Instagram {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	String indexPost(@RequestParam Map<String, String> paramMap) {
-		returnUrl = paramMap.get("email");
+		returnUrl = paramMap.get("return_url");
 		return "admin";
 	}
 
