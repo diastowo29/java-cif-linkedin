@@ -109,7 +109,7 @@ public class Instagram {
 	ResponseEntity<Object> manifest() {
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("name", "Instagram Integration");
-		hashMap.put("id", "zendesk-internal-instagram-integration");
+		hashMap.put("id", "zendesk-internal-instagram-integration-java");
 		hashMap.put("author", "Diastowo Faryduana");
 		hashMap.put("version", "v1.0");
 		HashMap<String, String> urlMap = new HashMap<>();
