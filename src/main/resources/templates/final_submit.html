@@ -11,7 +11,7 @@
 			<div class="col-12" align="center">
 				<p>Confirm your account..</p>
 				<form th:action="${metadata.returnUrl}" method="post">
-					<input type="text" class="form-control" name="name" th:value="${metadata.name}" disabled="true">
+					<input type="text" class="form-control" name="name" th:value="${metadata.name}" readonly="true">
 					<input type="hidden" class="form-control" name="metadata" th:value="${metadata.metadata}" hidden="true">
 					<input type="hidden" class="form-control" name="state" th:value="${metadata.state}" hidden="true">
 					<button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>

@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,11 +58,11 @@ public class Instagram {
 		hashMap.put("returnUrl", returnUrl);
 		System.out.println("RETURN URL: " + returnUrl);
 		hashMap.put("igId", igId);
-		// try {
-		hashMap.put("name", "Testing" /* + URLDecoder.decode(igName, "UTF-8") */);
-		// } catch (UnsupportedEncodingException e) {
-		// e.printStackTrace();
-		// }
+		try {
+			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		hashMap.put("metadata", "{\"igId\": \"" + igId + "\", \"token\": \"" + igToken + "\"}");
 		hashMap.put("state", "{\"state\":\"testing\"}");
 
