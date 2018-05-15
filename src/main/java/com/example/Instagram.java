@@ -59,7 +59,7 @@ public class Instagram {
 		System.out.println("RETURN URL: " + returnUrl);
 		hashMap.put("igId", igId);
 		try {
-			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
+			hashMap.put("name", "" + URLDecoder.decode(igName, "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
