@@ -109,6 +109,12 @@ public class Instagram {
 		return "ig_account";
 	}
 
+	@RequestMapping("/callback")
+	String callBack(@RequestParam("code") String code, Model model) {
+		model.addAttribute("code", code);
+		return "callback";
+	}
+
 	@RequestMapping("/manifest")
 	ResponseEntity<Object> manifest() {
 		HashMap<String, Object> hashMap = new HashMap<>();

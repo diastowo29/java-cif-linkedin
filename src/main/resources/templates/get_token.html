@@ -8,17 +8,14 @@
 <body>
 	<div class="row" style="padding: 40px;">
 		<div class="col-12" align="center">
-			<textarea class="form-control" rows="5" id="tokenarea" placeholder="Insert your token here.."></textarea>
-			<button type="submit" class="btn btn-primary" value="testing" onclick="popup();" style="margin-top: 20px;">Submit</button>
+			<h4>Please select your Instagram Account..</h4>
 		</div>
 	</div>
 	<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script>
-	    function popup() {
-	    	var token = document.getElementById("tokenarea");
-	    	console.log(token.value);
-	        window.open("../submit?token=" + token.value, "_self");
+	    function callFromChild (code) {
+	    	window.open("../submit?token=" + code, "_self");
 	    }
 	</script>
 </body>
