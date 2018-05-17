@@ -26,7 +26,7 @@ public class Instagram {
 	String returnUrl = "";
 	String fbApiDomain = "https://graph.facebook.com/v3.0";
 	String getAccessToken = fbApiDomain
-			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://cif-instagram.herokuapp.com/zendesk/instagram/mytoken/&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
+			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://java-cif-linkedin.herokuapp.com/instagram/callback&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
 	String getIgAccountsId = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
 	@RequestMapping(method = RequestMethod.GET)
