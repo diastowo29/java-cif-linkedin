@@ -118,7 +118,7 @@ public class Instagram {
 	@RequestMapping("/manifest")
 	ResponseEntity<Object> manifest() {
 		HashMap<String, Object> hashMap = new HashMap<>();
-		hashMap.put("name", "Instagram Integration");
+		hashMap.put("name", "Instagram Integration Java");
 		hashMap.put("id", "zendesk-internal-instagram-integration-java");
 		hashMap.put("author", "Diastowo Faryduana");
 		hashMap.put("version", "v1.0");
