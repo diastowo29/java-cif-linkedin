@@ -81,8 +81,8 @@ public class Instagram {
 		try {
 
 			JSONObject output = calling.callingGet(getAccessToken + token);
-			// accToken = output.getString("access_token");
-			accToken = "EAACEdEose0cBAFHeHZBdcx3TNoqUCGpaORohZA8aUmlY7WqT79qxcb8ZCZC3awhmayGZBZA01WiB91jJWa2i6m33QZCwzoEdFVQCGFCcZA2oPYRXe9PlQGnbZCB9Lh3jZCbcKv8tJNj6MJeeo5ZBbPdnBrIIZAcpfQGBBZCGAfkCt3fNEVfzrBJXgKHPrUbu7Xzao1ZBEZD";
+			accToken = output.getString("access_token");
+			accToken = "EAACEdEose0cBAPFWzDxGdYiKHibmn0fYS1SUS0g3cYUu22pjFidRbn73GyZBw8TO5cnoy7orp4r3P2u7qEkEZAMcYhfZBzckexYcuY0MrdaUIDZC96b3Sz74VJHWf6vu5tbYPpeBV5HIcNPbsUkkgNGQHZBo53p7FoZBcLRA867yk2ZA33gZAcc0m0sn8Rh8hTdIL7ajiLSBfQZDZD";
 
 			try {
 
