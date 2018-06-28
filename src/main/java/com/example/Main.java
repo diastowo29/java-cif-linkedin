@@ -32,6 +32,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -59,13 +60,13 @@ public class Main {
 	String db(Map<String, Object> model) {
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+//			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+//			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM newtables");
 
 			ArrayList<String> output = new ArrayList<String>();
 			while (rs.next()) {
-				output.add("Read from DB: " + rs.getTimestamp("tick"));
+				output.add("Read from DB: " + rs.getString("name"));
 			}
 
 			model.put("records", output);
@@ -85,6 +86,20 @@ public class Main {
 			config.setJdbcUrl(dbUrl);
 			return new HikariDataSource(config);
 		}
+	}
+
+	@RequestMapping("/thread")
+	String threading(@RequestParam("data") String itemid) {
+		ThreadingTicket queue = new ThreadingTicket(itemid);
+		queue.start();
+		return "index";
+	}
+
+	@RequestMapping("/timer")
+	String timering(@RequestParam("data") String itemid) {
+		System.out.println(itemid);
+		new TimeringTicket(itemid);
+		return "index";
 	}
 
 }
