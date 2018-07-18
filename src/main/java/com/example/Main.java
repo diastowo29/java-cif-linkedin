@@ -60,8 +60,8 @@ public class Main {
 	String db(Map<String, Object> model) {
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
-//			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-//			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+			// stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+			// stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
 			ResultSet rs = stmt.executeQuery("SELECT * FROM newtables");
 
 			ArrayList<String> output = new ArrayList<String>();
