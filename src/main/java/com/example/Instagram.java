@@ -32,9 +32,11 @@ public class Instagram {
 
 	String herokuDomain = "https://java-cif-linkedin.herokuapp.com/";
 	String returnUrl = "";
+	String callbackUrl = "https://java-cif-linkedin.herokuapp.com/instagram/callback";
+	
 	String fbApiDomain = "https://graph.facebook.com/v3.0";
 	String getAccessToken = fbApiDomain + "/oauth/access_token?client_id=" + clientId
-			+ "&redirect_uri=https://java-cif-linkedin.herokuapp.com/instagram/callback&client_secret=" + clientSecret
+			+ "&redirect_uri=" + callbackUrl + "&client_secret=" + clientSecret
 			+ "&code=";
 	String getIgAccountsId = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
@@ -91,7 +93,7 @@ public class Instagram {
 
 			JSONObject output = calling.callingGet(getAccessToken + token);
 			accToken = output.getString("access_token");
-			accToken = "EAACp8ZB1rm8IBABWOXgzgpVgW18aijfiMlyVnRiDHKyiSBf77mWjFcFE6YJDWfiIV9Xj2ydRjz0YEfUpaFPpZCb9rYVNk4Ffw5isySMnCHZBfXCDfqMBuvtyUAmMsFiliVZCFQHcOnXVqgjWspk89p0N4okFnGCK3wZAfHPTBbIoUVAqB5kmnX1xPn24HdQdEb04vt4SroAZDZD";
+			accToken = "EAACp8ZB1rm8IBAMpYiDg5v9svTPnhuRjTjZATIyYAPGiCxFl9vgqHbZCOfiBGWA2kGXY2hfmQq2Q7HyZAF2wTZBprkJ1Neoq8YItykPRoQQj5eyXwTkjcx9G5Iftq9aF10q4ZCUGzqZAnJzR14LVXvLfjZBqKZCzHCZBA8xQBwXYlYjvF88zPVnYWDzwiUZBtr7SZAXbJZBhBSq84QwZDZD";
 
 			try {
 
