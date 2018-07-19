@@ -104,11 +104,13 @@ public class Instagram {
 				if (outputAcc != null) {
 					for (int i = 0; i < igData.length(); i++) {
 						hashMap = new HashMap<>();
-						hashMap.put("name", igData.getJSONObject(i).getString("name"));
-						hashMap.put("id",
-								igData.getJSONObject(i).getJSONObject("connected_instagram_account").getString("id"));
-						hashMap.put("token", accToken);
-						hashList.add(hashMap);
+						if (igData.getJSONObject(i).has("connected_instagram_account")) {
+							hashMap.put("name", igData.getJSONObject(i).getString("name"));
+							hashMap.put("id",
+									igData.getJSONObject(i).getJSONObject("connected_instagram_account").getString("id"));
+							hashMap.put("token", accToken);
+							hashList.add(hashMap);
+						}
 					}
 				}
 
