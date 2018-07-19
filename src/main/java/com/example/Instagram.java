@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Instagram {
 	String clientId = "186865125399490";
 	String clientSecret = "8ab339714df67aa953c7842d193c470f";
-
+	
 	// String clientId = "376575612769500";
 	// String clientSecret = "c95fc0a354beb66dc9bb490e85762ec3";
 
