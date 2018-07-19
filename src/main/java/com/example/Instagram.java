@@ -24,11 +24,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @CrossOrigin
 @RequestMapping("/instagram/")
 public class Instagram {
+	String clientId = "186865125399490";
+	String clientSecret = "8ab339714df67aa953c7842d193c470f";
+
+	// String clientId = "376575612769500";
+	// String clientSecret = "c95fc0a354beb66dc9bb490e85762ec3";
+
 	String herokuDomain = "https://java-cif-linkedin.herokuapp.com/";
 	String returnUrl = "";
 	String fbApiDomain = "https://graph.facebook.com/v3.0";
-	String getAccessToken = fbApiDomain
-			+ "/oauth/access_token?client_id=376575612769500&redirect_uri=https://java-cif-linkedin.herokuapp.com/instagram/callback&client_secret=c95fc0a354beb66dc9bb490e85762ec3&code=";
+	String getAccessToken = fbApiDomain + "/oauth/access_token?client_id=" + clientId
+			+ "&redirect_uri=https://java-cif-linkedin.herokuapp.com/instagram/callback&client_secret=" + clientSecret
+			+ "&code=";
 	String getIgAccountsId = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -84,7 +91,7 @@ public class Instagram {
 
 			JSONObject output = calling.callingGet(getAccessToken + token);
 			accToken = output.getString("access_token");
-//			accToken = "EAAFWflehVNwBAFFZCr9cDCzYGVJ5PcwjFg8haE6KuU0c164Pmh8N8kAxu0v0IWsabnwlM1CoY47r6ZAtmEociTN9fbHqZCfvzkYwFPamflkqbb7nHfZCmrLfKJMGoELtfnawu2ecZBnY3HltnoNcZCLyhE0SlapE4rc1idGuSn5dn5nATrTo0wi5A8W1zGE58ZD";
+			accToken = "EAACp8ZB1rm8IBABWOXgzgpVgW18aijfiMlyVnRiDHKyiSBf77mWjFcFE6YJDWfiIV9Xj2ydRjz0YEfUpaFPpZCb9rYVNk4Ffw5isySMnCHZBfXCDfqMBuvtyUAmMsFiliVZCFQHcOnXVqgjWspk89p0N4okFnGCK3wZAfHPTBbIoUVAqB5kmnX1xPn24HdQdEb04vt4SroAZDZD";
 
 			try {
 
