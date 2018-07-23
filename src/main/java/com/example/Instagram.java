@@ -9,7 +9,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.objectweb.asm.TypeReference;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @SpringBootApplication
@@ -98,7 +95,8 @@ public class Instagram {
 
 			JSONObject output = calling.callingGet(getAccessToken + token);
 			accToken = output.getString("access_token");
-//			accToken = "EAAcIvztqj7IBAIsFZAqZC5VieI82WSGIm1XWV8fqEJ6KMgDv0hQin3gCjFt857BkoiBZBSMSQoO5KghXsQZApmTrnMJafPkYCjhfQHNN9Sspq2b9FKOqPuQHbj0cR4X9jUv5u5g9nPitU8rPIxpXOwUzkW6DvMTyAz92qiAQs4ZBN5vnlelNumkCDvMCMiQvfykB4Wv4xHQZDZD";
+			// accToken =
+			// "EAAcIvztqj7IBAIsFZAqZC5VieI82WSGIm1XWV8fqEJ6KMgDv0hQin3gCjFt857BkoiBZBSMSQoO5KghXsQZApmTrnMJafPkYCjhfQHNN9Sspq2b9FKOqPuQHbj0cR4X9jUv5u5g9nPitU8rPIxpXOwUzkW6DvMTyAz92qiAQs4ZBN5vnlelNumkCDvMCMiQvfykB4Wv4xHQZDZD";
 
 			try {
 
@@ -150,9 +148,9 @@ public class Instagram {
 		hashMap.put("urls", urlMap);
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping("/pull")
-	ResponseEntity<Object> pulling (@RequestParam Map<String, String> paramMap) {
+	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) {
 		System.out.println(paramMap.get("metadata"));
 		JSONObject jobject = new JSONObject();
 		try {
