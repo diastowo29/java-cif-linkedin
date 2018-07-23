@@ -156,7 +156,9 @@ public class Instagram {
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
 	
-	@RequestMapping("/webhook")
+	@RequestMapping(value = "/webhook", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<String> webhook (@RequestParam Map<String, String> paramMap) {
 		System.out.println("WEbHOOK Triggered");
 		System.out.println(paramMap);
