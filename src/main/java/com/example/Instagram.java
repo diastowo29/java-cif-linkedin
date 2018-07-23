@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.objectweb.asm.TypeReference;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @SpringBootApplication
@@ -150,6 +154,14 @@ public class Instagram {
 	@RequestMapping("/pull")
 	ResponseEntity<Object> pulling (@RequestParam Map<String, String> paramMap) {
 		System.out.println(paramMap.get("metadata"));
+		JSONObject jobject = new JSONObject();
+		try {
+			jobject = new JSONObject(paramMap.get("metadata").toString());
+			System.out.println(jobject.get("igId"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		HashMap<String, String> hashMap = new HashMap<>();
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
