@@ -157,9 +157,9 @@ public class Instagram {
 	}
 	
 	@RequestMapping("/webhook")
-	public String webhook () {
+	public ResponseEntity<String> webhook () {
 		System.out.println("WEbHOOK Triggered");
-		return "1";
+		return new ResponseEntity<String>("1", HttpStatus.OK);
 	}
 
 	@RequestMapping("/testing")
