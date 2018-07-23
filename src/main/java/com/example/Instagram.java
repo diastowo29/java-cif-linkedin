@@ -157,9 +157,10 @@ public class Instagram {
 	}
 	
 	@RequestMapping("/webhook")
-	public ResponseEntity<String> webhook (@RequestParam(name = "hub.challenge") String hub, Model model) {
+	public ResponseEntity<String> webhook (@RequestParam Map<String, String> paramMap) {
 		System.out.println("WEbHOOK Triggered");
-		return new ResponseEntity<String>(hub, HttpStatus.OK);
+		System.out.println(paramMap);
+		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 
 	@RequestMapping("/testing")
