@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/instagram/")
 public class Instagram {
 	// watsons
-	 String clientId = "186865125399490";
-	 String clientSecret = "8ab339714df67aa953c7842d193c470f";
-	
+	String clientId = "186865125399490";
+	String clientSecret = "8ab339714df67aa953c7842d193c470f";
+
 	// gw
-//	String clientId = "376575612769500";
-//	String clientSecret = "c95fc0a354beb66dc9bb490e85762ec3";
+	// String clientId = "376575612769500";
+	// String clientSecret = "c95fc0a354beb66dc9bb490e85762ec3";
 
 	String herokuDomain = "https://java-cif-linkedin.herokuapp.com/";
 	String returnUrl = "";
@@ -95,7 +95,7 @@ public class Instagram {
 
 			JSONObject output = calling.callingGet(getAccessToken + token);
 			accToken = output.getString("access_token");
-			accToken = "EAACp8ZB1rm8IBABP8ZBbH8vRZB8AV6ZAw4NYjEQRV5vaXjCZBHzPFCUW40K7fZBwhPZCtvvsMsrUquMTbTZAkVGwbogAA0FZBJG1qHZCwIDZB0VbMnbQuALXUyGVY1CCut8gL0PEdHNfBqHwPy4SZA1udXFZBeZAywjfSvpFvjMclKBWJnFWa2ItpHt18Cx5QYPwzlxx6pKy6Q1LkDSwZDZD";
+//			accToken = "EAACp8ZB1rm8IBABP8ZBbH8vRZB8AV6ZAw4NYjEQRV5vaXjCZBHzPFCUW40K7fZBwhPZCtvvsMsrUquMTbTZAkVGwbogAA0FZBJG1qHZCwIDZB0VbMnbQuALXUyGVY1CCut8gL0PEdHNfBqHwPy4SZA1udXFZBeZAywjfSvpFvjMclKBWJnFWa2ItpHt18Cx5QYPwzlxx6pKy6Q1LkDSwZDZD";
 
 			try {
 
@@ -106,8 +106,8 @@ public class Instagram {
 						hashMap = new HashMap<>();
 						if (igData.getJSONObject(i).has("connected_instagram_account")) {
 							hashMap.put("name", igData.getJSONObject(i).getString("name"));
-							hashMap.put("id",
-									igData.getJSONObject(i).getJSONObject("connected_instagram_account").getString("id"));
+							hashMap.put("id", igData.getJSONObject(i).getJSONObject("connected_instagram_account")
+									.getString("id"));
 							hashMap.put("token", accToken);
 							hashList.add(hashMap);
 						}
