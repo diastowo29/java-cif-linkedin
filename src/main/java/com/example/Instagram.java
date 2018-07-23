@@ -39,7 +39,6 @@ public class Instagram {
 	String fbApiDomain = "https://graph.facebook.com/v3.0";
 	String getAccessToken = fbApiDomain + "/oauth/access_token?client_id=" + clientId + "&redirect_uri=" + callbackUrl
 			+ "&client_secret=" + clientSecret + "&code=";
-
 	String getIgAccountsId = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -140,11 +139,18 @@ public class Instagram {
 		hashMap.put("version", "v1.0");
 		HashMap<String, String> urlMap = new HashMap<>();
 		urlMap.put("admin_ui", herokuDomain + "instagram/");
-		urlMap.put("pull_url", herokuDomain + "instagram/manifest");
+		urlMap.put("pull_url", herokuDomain + "instagram/pull");
 		urlMap.put("channelback_url", herokuDomain + "instagram/manifest");
 		urlMap.put("clickthrough_url", herokuDomain + "instagram/manifest");
 
 		hashMap.put("urls", urlMap);
+		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/pull")
+	ResponseEntity<Object> pulling (@RequestParam Map<String, String> paramMap) {
+		System.out.println(paramMap.get("metadata"));
+		HashMap<String, String> hashMap = new HashMap<>();
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
 
