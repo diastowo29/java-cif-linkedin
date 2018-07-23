@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -159,9 +162,11 @@ public class Instagram {
 	@RequestMapping(value = "/webhook", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<String> webhook (@RequestParam Map<String, String> paramMap) {
+	public ResponseEntity<String> webhook (HttpServletRequest request,
+            HttpServletResponse response, Model model) {
 		System.out.println("WEbHOOK Triggered");
-		System.out.println(paramMap);
+		System.out.println(request);
+		System.out.println(response);
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 
