@@ -20,32 +20,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.Urls.Entity;
+
 @Controller
 @SpringBootApplication
 @CrossOrigin
 @RequestMapping("/instagram/")
 public class Instagram {
-	// watsons
-	// String clientId = "186865125399490";
-	// String clientSecret = "8ab339714df67aa953c7842d193c470f";
-
-	// gw
-	String clientId = "376575612769500";
-	String clientSecret = "c95fc0a354beb66dc9bb490e85762ec3";
-
-	String herokuDomain = "https://java-cif-linkedin.herokuapp.com/";
-	String returnUrl = "";
-	String callbackUrl = "https://java-cif-linkedin.herokuapp.com/instagram/callback";
-
-	String fbApiDomain = "https://graph.facebook.com/v3.0";
-	String getAccessToken = fbApiDomain + "/oauth/access_token?client_id=" + clientId + "&redirect_uri=" + callbackUrl
-			+ "&client_secret=" + clientSecret + "&code=";
-	String getIgAccountsId = fbApiDomain + "/me/accounts?fields=connected_instagram_account,name&access_token=";
+	Entity entity = new Entity();
+	String RETURNURL = "";
 
 	@RequestMapping(method = RequestMethod.GET)
 	String indexGet() {
 		System.out.println("GET instagram");
-		returnUrl = "testing";
+		RETURNURL = "testing";
 		return "admin";
 	}
 
@@ -53,8 +41,8 @@ public class Instagram {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	String indexPost(@RequestParam Map<String, String> paramMap) {
-		returnUrl = paramMap.get("return_url");
-		System.out.println(returnUrl);
+		RETURNURL = paramMap.get("return_url");
+		System.out.println(RETURNURL);
 		return "admin";
 	}
 
@@ -68,8 +56,8 @@ public class Instagram {
 	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName,
 			@RequestParam(name = "token") String igToken, Model model) {
 		HashMap<String, String> hashMap = new HashMap<>();
-		hashMap.put("returnUrl", returnUrl);
-		System.out.println("RETURN URL: " + returnUrl);
+		hashMap.put("RETURNURL", RETURNURL);
+		System.out.println("RETURN URL: " + RETURNURL);
 		hashMap.put("igId", igId);
 		try {
 			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
@@ -93,14 +81,14 @@ public class Instagram {
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<>();
 		try {
 
-			JSONObject output = calling.callingGet(getAccessToken + token);
+			JSONObject output = calling.callingGet(entity.GET_ACC_TOKEN_API + token);
 			accToken = output.getString("access_token");
 			// accToken =
 			// "EAAcIvztqj7IBAIsFZAqZC5VieI82WSGIm1XWV8fqEJ6KMgDv0hQin3gCjFt857BkoiBZBSMSQoO5KghXsQZApmTrnMJafPkYCjhfQHNN9Sspq2b9FKOqPuQHbj0cR4X9jUv5u5g9nPitU8rPIxpXOwUzkW6DvMTyAz92qiAQs4ZBN5vnlelNumkCDvMCMiQvfykB4Wv4xHQZDZD";
 
 			try {
 
-				JSONObject outputAcc = calling.callingGet(getIgAccountsId + accToken);
+				JSONObject outputAcc = calling.callingGet(entity.GET_ACC_ID_API + accToken);
 				JSONArray igData = outputAcc.getJSONArray("data");
 				if (outputAcc != null) {
 					for (int i = 0; i < igData.length(); i++) {
@@ -140,10 +128,10 @@ public class Instagram {
 		hashMap.put("author", "Diastowo Faryduana");
 		hashMap.put("version", "v1.0");
 		HashMap<String, String> urlMap = new HashMap<>();
-		urlMap.put("admin_ui", herokuDomain + "instagram/");
-		urlMap.put("pull_url", herokuDomain + "instagram/pull");
-		urlMap.put("channelback_url", herokuDomain + "instagram/manifest");
-		urlMap.put("clickthrough_url", herokuDomain + "instagram/manifest");
+		urlMap.put("admin_ui", entity.HEROKUDOMAIN + "instagram/");
+		urlMap.put("pull_url", entity.HEROKUDOMAIN + "instagram/pull");
+		urlMap.put("channelback_url", entity.HEROKUDOMAIN + "instagram/manifest");
+		urlMap.put("clickthrough_url", entity.HEROKUDOMAIN + "instagram/manifest");
 
 		hashMap.put("urls", urlMap);
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
@@ -153,15 +141,25 @@ public class Instagram {
 	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) {
 		System.out.println(paramMap.get("metadata"));
 		JSONObject jobject = new JSONObject();
+		String igId = "";
+		String igToken = "";
 		try {
 			jobject = new JSONObject(paramMap.get("metadata").toString());
 			System.out.println(jobject.get("igId"));
+			igId = jobject.getString("igId");
+			igToken = jobject.getString("token");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		HashMap<String, String> hashMap = new HashMap<>();
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/webhook")
+	public String webhook () {
+		System.out.println("WEbHOOK Triggered");
+		return "";
 	}
 
 	@RequestMapping("/testing")
