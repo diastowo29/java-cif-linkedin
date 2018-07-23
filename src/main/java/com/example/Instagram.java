@@ -159,7 +159,7 @@ public class Instagram {
 	@RequestMapping("/webhook")
 	public String webhook () {
 		System.out.println("WEbHOOK Triggered");
-		return "";
+		return "1";
 	}
 
 	@RequestMapping("/testing")
