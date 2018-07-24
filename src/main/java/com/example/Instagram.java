@@ -186,7 +186,7 @@ public class Instagram {
 							comment = commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
 									.getJSONObject(j).getJSONObject("value").getString("text");
 							comment_id = commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
-									.getJSONObject(j).getJSONObject("value").getString("text");
+									.getJSONObject(j).getJSONObject("value").getString("id");
 							media_id = commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
 									.getJSONObject(j).getJSONObject("value").getJSONObject("media").getString("id");
 						}

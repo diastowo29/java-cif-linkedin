@@ -16,12 +16,18 @@
 
 package com.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.repo.CommentRepository;
+
 @SpringBootApplication
 public class Main implements CommandLineRunner {
+
+	@Autowired
+	CommentRepository commentRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
@@ -30,5 +36,6 @@ public class Main implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		commentRepo.deleteAll();
 	}
 }
