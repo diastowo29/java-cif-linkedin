@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "cif_comments")
 public class Comments implements Serializable {
 
 	private static final long serialVersionUID = 8814785481048416620L;
