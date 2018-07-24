@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.model.Comments;
-import com.example.repository.CommentRepository;
+import com.example.repo.CommentRepository;
 import com.example.urls.Entity;
 
 @Controller

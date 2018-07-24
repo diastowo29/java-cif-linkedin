@@ -20,16 +20,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@Controller
 @SpringBootApplication
 public class Main implements CommandLineRunner {
-	// @Autowired
-	// CommentRepository commentRepo;
-	// @Value("${spring.datasource.url}")
-	// private String dbUrl;
-	//
-	// @Autowired
-	// private DataSource dataSource;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
@@ -38,58 +30,5 @@ public class Main implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		// commentRepo.deleteAll();
 	}
-
-	// @RequestMapping("/")
-	// String index() {
-	// return "index";
-	// }
-	//
-	// @RequestMapping("/db")
-	// String db(Map<String, Object> model) {
-	// try (Connection connection = dataSource.getConnection()) {
-	// Statement stmt = connection.createStatement();
-	// // stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-	// // stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-	// ResultSet rs = stmt.executeQuery("SELECT * FROM newtables");
-	//
-	// ArrayList<String> output = new ArrayList<String>();
-	// while (rs.next()) {
-	// output.add("Read from DB: " + rs.getString("name"));
-	// }
-	//
-	// model.put("records", output);
-	// return "db";
-	// } catch (Exception e) {
-	// model.put("message", e.getMessage());
-	// return "error";
-	// }
-	// }
-	//
-	// @Bean
-	// public DataSource dataSource() throws SQLException {
-	// if (dbUrl == null || dbUrl.isEmpty()) {
-	// return new HikariDataSource();
-	// } else {
-	// HikariConfig config = new HikariConfig();
-	// config.setJdbcUrl(dbUrl);
-	// return new HikariDataSource(config);
-	// }
-	// }
-	//
-	// @RequestMapping("/thread")
-	// String threading(@RequestParam("data") String itemid) {
-	// ThreadingTicket queue = new ThreadingTicket(itemid);
-	// queue.start();
-	// return "index";
-	// }
-	//
-	// @RequestMapping("/timer")
-	// String timering(@RequestParam("data") String itemid) {
-	// System.out.println(itemid);
-	// new TimeringTicket(itemid);
-	// return "index";
-	// }
-
 }
