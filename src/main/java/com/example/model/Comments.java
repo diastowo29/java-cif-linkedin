@@ -13,7 +13,11 @@ import javax.persistence.Table;
 @Table(name = "cif_comments")
 public class Comments implements Serializable {
 
-	private static final long serialVersionUID = 8814785481048416620L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7157178489574254967L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
