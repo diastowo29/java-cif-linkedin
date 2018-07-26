@@ -138,32 +138,87 @@ public class Instagram {
 		HashMap<String, String> urlMap = new HashMap<>();
 		urlMap.put("admin_ui", entity.HEROKUDOMAIN + "instagram/");
 		urlMap.put("pull_url", entity.HEROKUDOMAIN + "instagram/pull");
-		urlMap.put("channelback_url", entity.HEROKUDOMAIN + "instagram/manifest");
+		urlMap.put("channelback_url", entity.HEROKUDOMAIN + "instagram/channelback");
 		urlMap.put("clickthrough_url", entity.HEROKUDOMAIN + "instagram/manifest");
 
 		hashMap.put("urls", urlMap);
 		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
 	}
 
+	/* FIXME PULL */
 	@RequestMapping("/pull")
-	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) {
+	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) throws JSONException {
+		Calling calling = new Calling();
+		Entity entity = new Entity();
+		HashMap<String, Object> extObj = new HashMap<>();
+		ArrayList<Object> extResource = new ArrayList<>();
+
 		System.out.println(paramMap.get("metadata"));
 		JSONObject jobject = new JSONObject();
 		String igId = "";
 		String igToken = "";
 		try {
 			jobject = new JSONObject(paramMap.get("metadata").toString());
-			System.out.println(jobject.get("igId"));
 			igId = jobject.getString("igId");
 			igToken = jobject.getString("token");
 			System.out.println(igId);
 			System.out.println(igToken);
+
+			JSONObject allMedia = calling.callingGet(entity.GetMediaUrl(igId, igToken));
+//			System.out.println(allMedia);
+			if (allMedia.has("data")) {
+				for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
+					HashMap<String, String> author = new HashMap<>();
+					author.put("external_id", "cif-user-" + igId);
+					author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("owner")
+							.getString("username"));
+					extObj = new HashMap<>();
+					extObj.put("external_id",
+							"cif-media-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
+					extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+					extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
+							.replace("+0000", "Z"));
+					extObj.put("author", author);
+					extObj.put("allow_channelback", true);
+					extResource.add(extObj);
+					if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
+						for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+								.getJSONArray("data").length(); j++) {
+							author = new HashMap<>();
+							author.put("external_id", "cif-user-" + igId);
+							author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+									.getJSONArray("data").getJSONObject(j).getString("username"));
+							extObj = new HashMap<>();
+							extObj.put("parent_id", "cif-media-"
+									+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
+							extObj.put("external_id",
+									"cif-comment-"
+											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getString("id")
+											+ "-" + igId);
+							extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+									.getJSONArray("data").getJSONObject(j).getString("text"));
+							extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+									.getJSONArray("data").getJSONObject(j).getString("timestamp").replace("+0000", "Z"));
+							extObj.put("author", author);
+							extObj.put("allow_channelback", true);
+							extResource.add(extObj);
+						}
+					}
+				}
+			}
+
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HashMap<String, String> hashMap = new HashMap<>();
-		return new ResponseEntity<Object>(hashMap, HttpStatus.OK);
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("external_resources", extResource);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/channelback")
+	public ResponseEntity<String> channelback () {
+		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/webhook", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
@@ -195,7 +250,6 @@ public class Instagram {
 				}
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("WEbHOOK Triggered");

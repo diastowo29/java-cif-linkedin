@@ -16,7 +16,7 @@ public class Entity {
 	public String GET_ACC_ID_API = FB_API_DOMAIN + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
 	public String GetMediaUrl(String accId, String token) {
-		String mediaApi = accId + "?fields=media{caption,comments{text,user,username}}&access_token=" + token;
+		String mediaApi = FB_API_DOMAIN + "/" + accId + "/media?fields=comments.limit(10){username,text,timestamp},media_url,caption,timestamp,owner{username}&access_token=" + token;
 		return mediaApi;
 	}
 }
