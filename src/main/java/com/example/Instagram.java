@@ -217,7 +217,8 @@ public class Instagram {
 	}
 	
 	@RequestMapping("/channelback")
-	public ResponseEntity<String> channelback () {
+	public ResponseEntity<String> channelback (@RequestParam Map<String, String> paramMap) {
+		System.out.println(paramMap);
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 
