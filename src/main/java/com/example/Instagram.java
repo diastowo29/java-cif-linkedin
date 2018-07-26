@@ -40,7 +40,7 @@ public class Instagram {
 
 	@RequestMapping(method = RequestMethod.GET)
 	String indexGet() {
-		System.out.println("GET instagram");
+		System.out.println("/get");
 		RETURNURL = "testing";
 		return "admin";
 	}
@@ -49,6 +49,7 @@ public class Instagram {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	String indexPost(@RequestParam Map<String, String> paramMap) {
+		System.out.println("/post");
 		RETURNURL = paramMap.get("return_url");
 		System.out.println(RETURNURL);
 		return "admin";
@@ -56,13 +57,14 @@ public class Instagram {
 
 	@RequestMapping("/getToken/")
 	String getToken() {
-		System.out.println("GET GETTOKEN");
+		System.out.println("/getToken/");
 		return "get_token";
 	}
 
 	@RequestMapping("/submittoken")
 	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName,
 			@RequestParam(name = "token") String igToken, Model model) {
+		System.out.println("/submittoken");
 		HashMap<String, String> hashMap = new HashMap<>();
 		hashMap.put("RETURNURL", RETURNURL);
 		System.out.println("RETURN URL: " + RETURNURL);
@@ -124,12 +126,14 @@ public class Instagram {
 
 	@RequestMapping("/callback")
 	String callBack(@RequestParam("code") String code, Model model) {
+		System.out.println("/callback");
 		model.addAttribute("code", code);
 		return "callback";
 	}
 
 	@RequestMapping("/manifest")
 	ResponseEntity<Object> manifest() {
+		System.out.println("/manifest");
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("name", "Instagram Integration Java");
 		hashMap.put("id", "zendesk-internal-instagram-integration-java");
@@ -148,6 +152,7 @@ public class Instagram {
 	/* FIXME PULL */
 	@RequestMapping("/pull")
 	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) throws JSONException {
+		System.out.println("/pull");
 		Calling calling = new Calling();
 		Entity entity = new Entity();
 		HashMap<String, Object> extObj = new HashMap<>();
@@ -218,6 +223,7 @@ public class Instagram {
 	
 	@RequestMapping("/channelback")
 	public ResponseEntity<String> channelback (@RequestParam Map<String, String> paramMap) {
+		System.out.println("/channelback");
 		System.out.println(paramMap);
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
@@ -226,6 +232,7 @@ public class Instagram {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<String> webhook(@RequestBody String request) {
+		System.out.println("/webhook");
 		JSONObject commentJson = new JSONObject();
 		String ig_id = "";
 		String comment = "";
