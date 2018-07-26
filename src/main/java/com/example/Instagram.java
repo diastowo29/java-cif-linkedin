@@ -66,7 +66,7 @@ public class Instagram {
 			@RequestParam(name = "token") String igToken, Model model) {
 		System.out.println("/submittoken");
 		HashMap<String, String> hashMap = new HashMap<>();
-		hashMap.put("RETURNURL", RETURNURL);
+		hashMap.put("returnUrl", RETURNURL);
 		System.out.println("RETURN URL: " + RETURNURL);
 		hashMap.put("igId", igId);
 		try {
