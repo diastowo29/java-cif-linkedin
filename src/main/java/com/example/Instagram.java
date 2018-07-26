@@ -170,7 +170,7 @@ public class Instagram {
 			System.out.println(igToken);
 
 			JSONObject allMedia = calling.callingGet(entity.GetMediaUrl(igId, igToken));
-//			System.out.println(allMedia);
+			// System.out.println(allMedia);
 			if (allMedia.has("data")) {
 				for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
 					HashMap<String, String> author = new HashMap<>();
@@ -190,7 +190,10 @@ public class Instagram {
 						for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 								.getJSONArray("data").length(); j++) {
 							author = new HashMap<>();
-							author.put("external_id", "cif-user-" + igId);
+							author.put("external_id",
+									"cif-user-"
+											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getString("username"));
 							author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 									.getJSONArray("data").getJSONObject(j).getString("username"));
 							extObj = new HashMap<>();
@@ -201,10 +204,12 @@ public class Instagram {
 											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 													.getJSONArray("data").getJSONObject(j).getString("id")
 											+ "-" + igId);
-							extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-									.getJSONArray("data").getJSONObject(j).getString("text"));
-							extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-									.getJSONArray("data").getJSONObject(j).getString("timestamp").replace("+0000", "Z"));
+							extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i)
+									.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("text"));
+							extObj.put("created_at",
+									allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+											.getJSONArray("data").getJSONObject(j).getString("timestamp")
+											.replace("+0000", "Z"));
 							extObj.put("author", author);
 							extObj.put("allow_channelback", true);
 							extResource.add(extObj);
@@ -220,9 +225,9 @@ public class Instagram {
 		response.put("external_resources", extResource);
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping("/channelback")
-	public ResponseEntity<String> channelback (@RequestParam Map<String, String> paramMap) {
+	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) {
 		System.out.println("/channelback");
 		System.out.println(paramMap);
 		return new ResponseEntity<String>("", HttpStatus.OK);
