@@ -17,8 +17,8 @@ public class Entity {
 
 	public String GetMediaUrl(String accId, String token) {
 		String mediaApi = FB_API_DOMAIN + "/" + accId
-				+ "/media?fields=comments.limit(10){username,text,timestamp,replies{username,text,timestamp}},media_url,caption,timestamp,owner{username}&access_token="
-				+ token;
+				+ "/media?fields=comments.limit(10){username,text,timestamp,replies{username,text,timestamp}},"
+				+ "media_url,caption,timestamp,owner{username}&access_token=" + token;
 		return mediaApi;
 	}
 
