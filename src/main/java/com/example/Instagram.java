@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.model.Comments;
+import com.example.repo.ClientRepository;
 import com.example.repo.CommentRepository;
 import com.example.urls.Entity;
 
@@ -34,6 +35,9 @@ public class Instagram {
 
 	@Autowired
 	CommentRepository commentRepo;
+
+	@Autowired
+	ClientRepository clientRepo;
 
 	Entity entity = new Entity();
 	String RETURNURL = "";
@@ -59,26 +63,6 @@ public class Instagram {
 	String getToken() {
 		System.out.println("/getToken/");
 		return "get_token";
-	}
-
-	@RequestMapping("/submittoken")
-	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName,
-			@RequestParam(name = "token") String igToken, Model model) {
-		System.out.println("/submittoken");
-		HashMap<String, String> hashMap = new HashMap<>();
-		hashMap.put("returnUrl", RETURNURL);
-		System.out.println("RETURN URL: " + RETURNURL);
-		hashMap.put("igId", igId);
-		try {
-			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		hashMap.put("metadata", "{\"igId\": \"" + igId + "\", \"token\": \"" + igToken + "\"}");
-		hashMap.put("state", "{\"state\":\"testing\"}");
-
-		model.addAttribute("metadata", hashMap);
-		return "final_submit";
 	}
 
 	@RequestMapping("/submit")
@@ -122,6 +106,27 @@ public class Instagram {
 		}
 		model.addAttribute("igList", hashList);
 		return "ig_account";
+	}
+
+	@RequestMapping("/submittoken")
+	String finalSubmit(@RequestParam(name = "getId") String igId, @RequestParam(name = "name") String igName,
+			@RequestParam(name = "token") String igToken, @RequestParam(name = "option") String option, Model model) {
+		System.out.println("/submittoken");
+		HashMap<String, String> hashMap = new HashMap<>();
+		hashMap.put("returnUrl", RETURNURL);
+		System.out.println("RETURN URL: " + RETURNURL);
+		hashMap.put("igId", igId);
+		try {
+			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		hashMap.put("metadata",
+				"{\"igId\": \"" + igId + "\", \"token\": \"" + igToken + "\", \"option\": \"" + option + "\"}");
+		hashMap.put("state", "{\"state\":\"testing\"}");
+
+		model.addAttribute("metadata", hashMap);
+		return "final_submit";
 	}
 
 	@RequestMapping("/callback")
@@ -234,6 +239,13 @@ public class Instagram {
 		System.out.println(paramMap.get("recipient_id"));
 		System.out.println(paramMap.get("thread_id"));
 		return new ResponseEntity<String>("", HttpStatus.OK);
+	}
+
+	@RequestMapping("/saveclient")
+	public ResponseEntity<String> saveClient(@RequestBody Map<String, String> parameter) {
+		System.out.println("/saveclient");
+		System.out.println(parameter);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/webhook", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
