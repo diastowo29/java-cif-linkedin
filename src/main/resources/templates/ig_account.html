@@ -32,11 +32,10 @@
 			var _href = $(".list-group-item").attr("href");
 			console.log(_href.indexOf('&option'));
 			if (_href.indexOf('&option') == -1) {
-				console.log(_href + "&option=" + option);
+				$(".list-group-item").attr("href", _href + "&option=" + option);
 			} else {
-				console.log(_href.slice(0, _href.indexOf("&option")) + "&option=" + option);
+				$(".list-group-item").attr("href", _href.slice(0, _href.indexOf("&option")) + "&option=" + option);
 			}
-			$(".list-group-item").attr("href", _href + "&option=" + option);
 		}
 	</script>
 </body>
