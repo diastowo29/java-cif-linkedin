@@ -163,16 +163,15 @@ public class Instagram {
 		HashMap<String, Object> extObj = new HashMap<>();
 		ArrayList<Object> extResource = new ArrayList<>();
 
-		System.out.println(paramMap.get("metadata"));
 		JSONObject jobject = new JSONObject();
 		String igId = "";
 		String igToken = "";
+		String option = "";
 		try {
 			jobject = new JSONObject(paramMap.get("metadata").toString());
 			igId = jobject.getString("igId");
 			igToken = jobject.getString("token");
-			System.out.println(igId);
-			System.out.println(igToken);
+			option = jobject.getString("option");
 
 			JSONObject allMedia = calling.callingGet(entity.GetMediaUrl(igId, igToken));
 			// System.out.println(allMedia);
@@ -202,8 +201,10 @@ public class Instagram {
 							author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 									.getJSONArray("data").getJSONObject(j).getString("username"));
 							extObj = new HashMap<>();
-							extObj.put("parent_id", "cif-media-"
-									+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
+							if (option.equals("1")) {
+								extObj.put("parent_id", "cif-media-"
+										+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
+							}
 							extObj.put("external_id",
 									"cif-comment-"
 											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
