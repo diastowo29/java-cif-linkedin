@@ -78,8 +78,11 @@ public class Comments implements Serializable {
 	protected Comments() {
 	}
 
-	public Comments(String cif_ig_id, String cif_comment_id, String cif_comment_text, String cif_comment_user,
+	public Comments(long id, String cif_ig_id, String cif_comment_id, String cif_comment_text, String cif_comment_user,
 			String cif_media_id, String cif_media_caption, String cif_media_url) {
+		if (id != 0) {
+			this.id = id;
+		}
 		this.igid = cif_ig_id;
 		this.cif_comment_id = cif_comment_id;
 		this.cif_comment_text = cif_comment_text;

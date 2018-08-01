@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.model.Comments;
 import com.example.repo.ClientRepository;
-import com.example.repo.CommentRepository;
 import com.example.urls.Entity;
 
 @Controller
@@ -32,9 +30,6 @@ import com.example.urls.Entity;
 @CrossOrigin
 @RequestMapping("/instagram/")
 public class Instagram {
-
-	@Autowired
-	CommentRepository commentRepo;
 
 	@Autowired
 	ClientRepository clientRepo;
@@ -157,6 +152,7 @@ public class Instagram {
 	/* FIXME PULL */
 	@RequestMapping("/pull")
 	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) throws JSONException {
+
 		System.out.println("/pull");
 		Calling calling = new Calling();
 		Entity entity = new Entity();
@@ -236,7 +232,7 @@ public class Instagram {
 													.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
 													.getJSONArray("data").getJSONObject(k).getString("username"));
 									extObj = new HashMap<>();
-									extObj.put("parent_id", "cif-media-"
+									extObj.put("parent_id", "cif-comment-"
 											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 													.getJSONArray("data").getJSONObject(j).getString("id")
 											+ "-" + igId);
@@ -272,6 +268,7 @@ public class Instagram {
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
+	/* FIXME CHANNELBACK */
 	@RequestMapping("/channelback")
 	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) {
 		System.out.println("/channelback");
@@ -287,49 +284,6 @@ public class Instagram {
 		System.out.println("/saveclient");
 		System.out.println(parameter);
 		return new ResponseEntity<String>(HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/webhook", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
-					MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<String> webhook(@RequestBody String request) {
-		System.out.println("/webhook");
-		JSONObject commentJson = new JSONObject();
-		String ig_id = "";
-		String comment = "";
-		String comment_id = "";
-		String media_id = "";
-		try {
-			commentJson = new JSONObject(request);
-			if (commentJson.has("entry")) {
-				for (int i = 0; i < commentJson.getJSONArray("entry").length(); i++) {
-					ig_id = commentJson.getJSONArray("entry").getJSONObject(i).getString("id");
-					if (commentJson.getJSONArray("entry").getJSONObject(i).has("changes")) {
-						for (int j = 0; j < commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
-								.length(); j++) {
-							comment = commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
-									.getJSONObject(j).getJSONObject("value").getString("text");
-							comment_id = commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
-									.getJSONObject(j).getJSONObject("value").getString("id");
-							media_id = commentJson.getJSONArray("entry").getJSONObject(i).getJSONArray("changes")
-									.getJSONObject(j).getJSONObject("value").getJSONObject("media").getString("id");
-						}
-					}
-					commentRepo.save(new Comments(ig_id, comment_id, comment, "", media_id, "", ""));
-				}
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		System.out.println("WEbHOOK Triggered");
-		System.out.println(request);
-		System.out.println();
-		return new ResponseEntity<String>("", HttpStatus.OK);
-	}
-
-	@RequestMapping("/verifyme")
-	public ResponseEntity<String> verifyWebhook(@RequestParam(name = "hub.challenge") String hub) {
-		return new ResponseEntity<String>(hub, HttpStatus.OK);
 	}
 
 	@RequestMapping("/testing")
