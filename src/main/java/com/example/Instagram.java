@@ -223,10 +223,11 @@ public class Instagram {
 										.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
 										.getJSONObject("replies").getJSONArray("data").length(); k++) {
 									author = new HashMap<>();
-									author.put("external_id",
-											"cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
-													.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
-													.getString("username") + "-" + igId);
+									author.put("external_id", "cif-user-"
+											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
+													.getJSONArray("data").getJSONObject(k).getString("username")
+											+ "-" + igId);
 									author.put("name",
 											allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 													.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
