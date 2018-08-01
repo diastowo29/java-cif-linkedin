@@ -274,7 +274,7 @@ public class Instagram {
 	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) {
 		System.out.println("/channelback");
 		// System.out.println(paramMap.get("message"));
-		// System.out.println(paramMap.get("parent_id"));
+		System.out.println(paramMap.get("parent_id"));
 		// System.out.println(paramMap.get("recipient_id"));
 		System.out.println(paramMap.get("thread_id"));
 
