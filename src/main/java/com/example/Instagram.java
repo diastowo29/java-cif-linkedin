@@ -280,12 +280,16 @@ public class Instagram {
 
 		/* GET COMMENT ID */
 		String commentId = paramMap.get("thread_id").split("-")[2];
+		String igId = paramMap.get("thread_id").split("-")[3];
 		String message = paramMap.get("message").toString();
 
 		System.out.println(commentId);
 
 		Calling call = new Calling();
 		Entity ent = new Entity();
+		
+		JSONObject reply = call.callingGet(ent.replyComment(commentId, message));
+		System.out.println(reply);
 
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
