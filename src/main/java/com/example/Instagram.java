@@ -169,7 +169,7 @@ public class Instagram {
 			igToken = jobject.getString("token");
 			option = jobject.getString("option");
 
-			JSONObject allMedia = calling.callingGet(entity.GetMediaUrl(igId, igToken));
+			JSONObject allMedia = calling.callingGet(entity.getMediaUrl(igId, igToken));
 			// System.out.println(allMedia);
 			if (allMedia.has("data")) {
 				for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
@@ -273,10 +273,20 @@ public class Instagram {
 	@RequestMapping("/channelback")
 	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) {
 		System.out.println("/channelback");
-		System.out.println(paramMap.get("message"));
-		System.out.println(paramMap.get("parent_id"));
-		System.out.println(paramMap.get("recipient_id"));
+		// System.out.println(paramMap.get("message"));
+		// System.out.println(paramMap.get("parent_id"));
+		// System.out.println(paramMap.get("recipient_id"));
 		System.out.println(paramMap.get("thread_id"));
+
+		/* GET COMMENT ID */
+		String commentId = paramMap.get("thread_id").split("-")[2];
+		String message = paramMap.get("message").toString();
+
+		System.out.println(commentId);
+
+		Calling call = new Calling();
+		Entity ent = new Entity();
+
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 
