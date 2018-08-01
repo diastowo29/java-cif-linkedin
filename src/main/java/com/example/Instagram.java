@@ -226,7 +226,7 @@ public class Instagram {
 									author.put("external_id",
 											"cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
 													.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
-													.getString("username"));
+													.getString("username") + "-" + igId);
 									author.put("name",
 											allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 													.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
