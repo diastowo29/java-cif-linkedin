@@ -22,8 +22,8 @@ public class Entity {
 		return mediaApi;
 	}
 
-	public String replyComment(String commentId, String message) {
-		String replyApi = FB_API_DOMAIN + "/" + commentId + "/replies?message=" + message;
+	public String replyComment(String commentId, String message, String token) {
+		String replyApi = FB_API_DOMAIN + "/" + commentId + "/replies?message=" + message + "&access_token=" + token;
 		return replyApi;
 	}
 }

@@ -44,7 +44,8 @@ public class Instagram {
 		RETURNURL = "testing";
 		return "preadmin";
 	}
-
+	
+	/* HANDLE POST REQUEST FROM VIEW, see preadmin.html */
 	@PostMapping(value = "/admin", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
