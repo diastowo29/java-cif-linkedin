@@ -44,7 +44,7 @@ public class Instagram {
 		RETURNURL = "testing";
 		return "preadmin";
 	}
-	
+
 	/* HANDLE POST REQUEST FROM VIEW, see preadmin.html */
 	@PostMapping(value = "/admin", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_ATOM_XML_VALUE,
@@ -285,9 +285,9 @@ public class Instagram {
 
 	/* FIXME CHANNELBACK */
 	@RequestMapping("/channelback")
-	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) {
+	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) throws JSONException {
 		System.out.println("/channelback");
-		System.out.println(paramMap);
+		// System.out.println(paramMap);
 		// System.out.println(paramMap.get("message"));
 		System.out.println(paramMap.get("parent_id"));
 		// System.out.println(paramMap.get("recipient_id"));
@@ -297,14 +297,15 @@ public class Instagram {
 		String commentId = paramMap.get("thread_id").split("-")[2];
 		String igId = paramMap.get("thread_id").split("-")[3];
 		String message = paramMap.get("message").toString();
+		JSONObject metadata = new JSONObject(paramMap.get("metadata").toString());
 
 		System.out.println(commentId);
 
 		Calling call = new Calling();
 		Entity ent = new Entity();
 
-//		JSONObject reply = call.callingGet(ent.replyComment(commentId, message));
-//		System.out.println(reply);
+		JSONObject reply = call.callingGet(ent.replyComment(commentId, message, metadata.getString("token")));
+		System.out.println(reply);
 
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
