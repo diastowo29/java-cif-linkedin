@@ -30,6 +30,10 @@ public class Client implements Serializable {
 
 	@Column(name = "cif_o_post_o_ticket")
 	private String cifPostToTicket;
+	
+	public long getId() {
+		return id;
+	}
 
 	public String getClientId() {
 		return cifClientId;
@@ -43,7 +47,10 @@ public class Client implements Serializable {
 		return cifPostToTicket;
 	}
 
-	public Client(String cifClientId, String cifClientSecret, String cifPostToTicket) {
+	public Client(long id, String cifClientId, String cifClientSecret, String cifPostToTicket) {
+		if (id != 0) {
+			this.id = id;
+		}
 		this.cifClientId = cifClientId;
 		this.cifClientSecret = cifClientSecret;
 		this.cifPostToTicket = cifPostToTicket;
