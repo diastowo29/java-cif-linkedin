@@ -22,11 +22,11 @@
 					.open(
 							"https://www.facebook.com/v3.0/dialog/oauth?client_id="
 									+ appId
-									+ "&redirect_uri=https://java-cif-linkedin.herokuapp.com/instagram/callback&state={\"{appId:"
+									+ "&redirect_uri=https://java-cif-linkedin.herokuapp.com/instagram/callback&state={\"appId\":\""
 									+ appId
-									+ ", appSecret:"
+									+ "\", \"appSecret\":\""
 									+ appSecret
-									+ "}\"}&scope=manage_pages%2Cpublish_pages%2Cinstagram_basic%2Cinstagram_manage_comments",
+									+ "\"}&scope=manage_pages%2Cpublish_pages%2Cinstagram_basic%2Cinstagram_manage_comments",
 							'window', 'width=600,height=400');
 			// window.open("http://localhost:5000/instagram/callback?code=123", 'window', 'width=600,height=400');
 		}
