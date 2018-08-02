@@ -287,6 +287,7 @@ public class Instagram {
 	@RequestMapping("/channelback")
 	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) {
 		System.out.println("/channelback");
+		System.out.println(paramMap);
 		// System.out.println(paramMap.get("message"));
 		System.out.println(paramMap.get("parent_id"));
 		// System.out.println(paramMap.get("recipient_id"));
@@ -302,8 +303,8 @@ public class Instagram {
 		Calling call = new Calling();
 		Entity ent = new Entity();
 
-		JSONObject reply = call.callingGet(ent.replyComment(commentId, message));
-		System.out.println(reply);
+//		JSONObject reply = call.callingGet(ent.replyComment(commentId, message));
+//		System.out.println(reply);
 
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
