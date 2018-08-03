@@ -294,7 +294,7 @@ public class Instagram {
 		System.out.println(paramMap.get("thread_id"));
 
 		/* GET COMMENT ID */
-		String commentId = paramMap.get("thread_id").split("-")[2];
+		String commentId = paramMap.get("parent_id").split("-")[2];
 		String igId = paramMap.get("thread_id").split("-")[3];
 		String message = paramMap.get("message").toString();
 		JSONObject metadata = new JSONObject(paramMap.get("metadata").toString());
