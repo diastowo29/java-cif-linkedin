@@ -308,7 +308,7 @@ public class Instagram {
 		JSONObject reply = call.hit(ent.replyComment(commentId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")), "POST");
 		System.out.println(reply);
 		HashMap<String, Object> response = new HashMap<>();
-		response.put("external_id", reply.getString("id"));
+		response.put("external_id", "cif-comment-" + reply.getString("id") + "-" + igId);
 		response.put("allow_channelback", true);
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
