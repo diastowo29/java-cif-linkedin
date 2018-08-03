@@ -203,7 +203,7 @@ public class Instagram {
 					extObj.put("allow_channelback", true);
 					ArrayList<Object> displayInfoArray = new ArrayList<>();
 					HashMap<String, String> displayInfo = new HashMap<>();
-					displayInfo.put("type", "URI");
+					displayInfo.put("type", "URI-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
 					displayInfo.put("data", "{\"priority\": \""
 							+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}");
 					displayInfoArray.add(displayInfo);
@@ -240,7 +240,8 @@ public class Instagram {
 							extObj.put("allow_channelback", true);
 							displayInfoArray = new ArrayList<>();
 							displayInfo = new HashMap<>();
-							displayInfo.put("type", "URI");
+							displayInfo.put("type", "URI-" + allMedia.getJSONArray("data").getJSONObject(i)
+									.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id"));
 							displayInfo.put("data", "{\"priority\": \""
 									+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}");
 							displayInfoArray.add(displayInfo);
