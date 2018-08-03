@@ -238,6 +238,13 @@ public class Instagram {
 											.replace("+0000", "Z"));
 							extObj.put("author", author);
 							extObj.put("allow_channelback", true);
+							displayInfoArray = new ArrayList<>();
+							displayInfo = new HashMap<>();
+							displayInfo.put("type", "MEDIA URL");
+							displayInfo.put("data",
+									"{" + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "}");
+							displayInfoArray.add(displayInfo);
+							extObj.put("display_info", displayInfoArray);
 							extResource.add(extObj);
 							if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 									.getJSONArray("data").getJSONObject(j).has("replies")) {
