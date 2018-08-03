@@ -12,14 +12,14 @@ import java.nio.charset.Charset;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Calling {
-	public JSONObject callingGet(String newUrl) {
+public class HitApi {
+	public JSONObject hit(String newUrl, String method) {
 		JSONObject response = new JSONObject();
 		try {
 			System.out.println("CALLING GET: " + newUrl);
 			URL url = new URL(newUrl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
+			conn.setRequestMethod(method);
 			conn.setRequestProperty("Accept", "application/json");
 			if (conn.getResponseCode() != 200) {
 				System.out.println("HTTP ERROR:");

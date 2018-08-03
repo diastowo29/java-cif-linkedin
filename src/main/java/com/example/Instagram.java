@@ -77,20 +77,20 @@ public class Instagram {
 	String submitToken(@RequestParam("token") String token, Model model) {
 		System.out.println("GET SUBMIT TOKEN: " + token);
 		String accToken = "";
-		Calling calling = new Calling();
+		HitApi calling = new HitApi();
 
 		HashMap<String, String> hashMap = new HashMap<>();
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<>();
 		try {
 
-			JSONObject output = calling.callingGet(entity.GET_ACC_TOKEN_API + token);
+			JSONObject output = calling.hit(entity.GET_ACC_TOKEN_API + token, "GET");
 			accToken = output.getString("access_token");
 			// accToken =
 			// "EAAcIvztqj7IBAIsFZAqZC5VieI82WSGIm1XWV8fqEJ6KMgDv0hQin3gCjFt857BkoiBZBSMSQoO5KghXsQZApmTrnMJafPkYCjhfQHNN9Sspq2b9FKOqPuQHbj0cR4X9jUv5u5g9nPitU8rPIxpXOwUzkW6DvMTyAz92qiAQs4ZBN5vnlelNumkCDvMCMiQvfykB4Wv4xHQZDZD";
 
 			try {
 
-				JSONObject outputAcc = calling.callingGet(entity.GET_ACC_ID_API + accToken);
+				JSONObject outputAcc = calling.hit(entity.GET_ACC_ID_API + accToken, "GET");
 				JSONArray igData = outputAcc.getJSONArray("data");
 				if (outputAcc != null) {
 					for (int i = 0; i < igData.length(); i++) {
@@ -168,7 +168,7 @@ public class Instagram {
 	ResponseEntity<Object> pulling(@RequestParam Map<String, String> paramMap) throws JSONException {
 
 		System.out.println("/pull");
-		Calling calling = new Calling();
+		HitApi calling = new HitApi();
 		Entity entity = new Entity();
 		HashMap<String, Object> extObj = new HashMap<>();
 		ArrayList<Object> extResource = new ArrayList<>();
@@ -183,7 +183,7 @@ public class Instagram {
 			igToken = jobject.getString("token");
 			option = jobject.getString("option");
 
-			JSONObject allMedia = calling.callingGet(entity.getMediaUrl(igId, igToken));
+			JSONObject allMedia = calling.hit(entity.getMediaUrl(igId, igToken), "GET");
 			// System.out.println(allMedia);
 			if (allMedia.has("data")) {
 				for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
@@ -301,10 +301,10 @@ public class Instagram {
 
 		System.out.println(commentId);
 
-		Calling call = new Calling();
+		HitApi call = new HitApi();
 		Entity ent = new Entity();
 
-		JSONObject reply = call.callingGet(ent.replyComment(commentId, message, metadata.getString("token")));
+		JSONObject reply = call.hit(ent.replyComment(commentId, message, metadata.getString("token")), "POST");
 		System.out.println(reply);
 
 		return new ResponseEntity<String>("", HttpStatus.OK);
