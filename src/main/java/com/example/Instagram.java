@@ -201,6 +201,13 @@ public class Instagram {
 							.replace("+0000", "Z"));
 					extObj.put("author", author);
 					extObj.put("allow_channelback", true);
+					ArrayList<Object> displayInfoArray = new ArrayList<>();
+					HashMap<String, String> displayInfo = new HashMap<>();
+					displayInfo.put("type", "MEDIA URL");
+					displayInfo.put("data",
+							"{" + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "}");
+					displayInfoArray.add(displayInfo);
+					extObj.put("display_info", displayInfoArray);
 					extResource.add(extObj);
 					if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
 						for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
@@ -286,13 +293,9 @@ public class Instagram {
 
 	/* FIXME CHANNELBACK */
 	@RequestMapping("/channelback")
-	public ResponseEntity<Object> channelback(@RequestParam Map<String, String> paramMap) throws JSONException, UnsupportedEncodingException {
+	public ResponseEntity<Object> channelback(@RequestParam Map<String, String> paramMap)
+			throws JSONException, UnsupportedEncodingException {
 		System.out.println("/channelback");
-		// System.out.println(paramMap);
-		// System.out.println(paramMap.get("message"));
-		System.out.println(paramMap.get("parent_id"));
-		// System.out.println(paramMap.get("recipient_id"));
-		System.out.println(paramMap.get("thread_id"));
 
 		/* GET COMMENT ID */
 		String commentId = paramMap.get("parent_id").split("-")[2];
@@ -300,13 +303,11 @@ public class Instagram {
 		String message = paramMap.get("message").toString();
 		JSONObject metadata = new JSONObject(paramMap.get("metadata").toString());
 
-		System.out.println(commentId);
-
 		HitApi call = new HitApi();
 		Entity ent = new Entity();
 
-		JSONObject reply = call.hit(ent.replyComment(commentId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")), "POST");
-		System.out.println(reply);
+		JSONObject reply = call.hit(
+				ent.replyComment(commentId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")), "POST");
 		HashMap<String, Object> response = new HashMap<>();
 		response.put("external_id", "cif-comment-" + reply.getString("id") + "-" + igId);
 		response.put("allow_channelback", true);
