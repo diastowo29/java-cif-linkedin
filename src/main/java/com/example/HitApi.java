@@ -16,7 +16,7 @@ public class HitApi {
 	public JSONObject hit(String newUrl, String method) {
 		JSONObject response = new JSONObject();
 		try {
-			System.out.println("CALLING GET: " + newUrl);
+			System.out.println("CALLING " + method + ": " + newUrl);
 			URL url = new URL(newUrl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod(method);

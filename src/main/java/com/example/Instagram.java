@@ -2,6 +2,7 @@ package com.example;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -285,7 +286,7 @@ public class Instagram {
 
 	/* FIXME CHANNELBACK */
 	@RequestMapping("/channelback")
-	public ResponseEntity<String> channelback(@RequestParam Map<String, String> paramMap) throws JSONException {
+	public ResponseEntity<Object> channelback(@RequestParam Map<String, String> paramMap) throws JSONException, UnsupportedEncodingException {
 		System.out.println("/channelback");
 		// System.out.println(paramMap);
 		// System.out.println(paramMap.get("message"));
@@ -304,10 +305,13 @@ public class Instagram {
 		HitApi call = new HitApi();
 		Entity ent = new Entity();
 
-		JSONObject reply = call.hit(ent.replyComment(commentId, message, metadata.getString("token")), "POST");
+		JSONObject reply = call.hit(ent.replyComment(commentId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")), "POST");
 		System.out.println(reply);
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("external_id", reply.getString("id"));
+		response.put("allow_channelback", true);
 
-		return new ResponseEntity<String>("", HttpStatus.OK);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
 	@RequestMapping("/saveclient")
