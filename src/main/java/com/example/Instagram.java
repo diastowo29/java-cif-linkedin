@@ -203,13 +203,13 @@ public class Instagram {
 						extObj.put("author", author);
 						extObj.put("allow_channelback", true);
 						
-						ArrayList<Object> displayInfoArray = new ArrayList<>();
-						HashMap<String, String> displayInfo = new HashMap<>();
-						displayInfo.put("type", /*"URI-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id")*/ "omniwear.com/integrations/instagram/display/comment/v1");
-						displayInfo.put("data", /*"{\"priority\": \""
-								+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}"*/ "{\"priority\": \"medium\"}");
-						displayInfoArray.add(displayInfo);
-						extObj.put("display_info", displayInfoArray);
+//						ArrayList<Object> displayInfoArray = new ArrayList<>();
+//						HashMap<String, String> displayInfo = new HashMap<>();
+//						displayInfo.put("type", /*"URI-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id")*/ "omniwear.com/integrations/instagram/display/comment/v1");
+//						displayInfo.put("data", /*"{\"priority\": \""
+//								+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}"*/ "{\"priority\": \"medium\"}");
+//						displayInfoArray.add(displayInfo);
+//						extObj.put("display_info", displayInfoArray);
 						
 						extResource.add(extObj);
 						if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
@@ -242,14 +242,14 @@ public class Instagram {
 								extObj.put("author", author);
 								extObj.put("allow_channelback", true);
 								
-								displayInfoArray = new ArrayList<>();
-								displayInfo = new HashMap<>();
-								displayInfo.put("type", /*"URI-" + allMedia.getJSONArray("data").getJSONObject(i)
-										.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id")*/ "omniwear.com/integrations/instagram/display/comment/v1");
-								displayInfo.put("data", /*"{\"priority\": \""
-										+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}"*/ "{\"priority\": \"low\"}");
-								displayInfoArray.add(displayInfo);
-								extObj.put("display_info", displayInfoArray);
+//								displayInfoArray = new ArrayList<>();
+//								displayInfo = new HashMap<>();
+//								displayInfo.put("type", /*"URI-" + allMedia.getJSONArray("data").getJSONObject(i)
+//										.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id")*/ "omniwear.com/integrations/instagram/display/comment/v1");
+//								displayInfo.put("data", /*"{\"priority\": \""
+//										+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}"*/ "{\"priority\": \"low\"}");
+//								displayInfoArray.add(displayInfo);
+//								extObj.put("display_info", displayInfoArray);
 								
 								extResource.add(extObj);
 								if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
