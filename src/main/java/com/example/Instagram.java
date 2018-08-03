@@ -204,8 +204,8 @@ public class Instagram {
 					ArrayList<Object> displayInfoArray = new ArrayList<>();
 					HashMap<String, String> displayInfo = new HashMap<>();
 					displayInfo.put("type", "URI");
-					displayInfo.put("data",
-							"{" + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "}");
+					displayInfo.put("data", "{\"priority\": \""
+							+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}");
 					displayInfoArray.add(displayInfo);
 					extObj.put("display_info", displayInfoArray);
 					extResource.add(extObj);
@@ -241,8 +241,8 @@ public class Instagram {
 							displayInfoArray = new ArrayList<>();
 							displayInfo = new HashMap<>();
 							displayInfo.put("type", "URI");
-							displayInfo.put("data",
-									"{\"priority\": \"" + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}");
+							displayInfo.put("data", "{\"priority\": \""
+									+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}");
 							displayInfoArray.add(displayInfo);
 							extObj.put("display_info", displayInfoArray);
 							extResource.add(extObj);
