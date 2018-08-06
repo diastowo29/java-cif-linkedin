@@ -188,6 +188,11 @@ public class Instagram {
 			// System.out.println(allMedia);
 			if (allMedia.has("data")) {
 				for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
+
+					String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId
+							+ "-" + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url").replace("-",
+									"*das*");
+
 					if (i == 0) {
 						HashMap<String, String> author = new HashMap<>();
 						author.put("external_id", "cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
@@ -208,6 +213,12 @@ public class Instagram {
 						if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
 							for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 									.getJSONArray("data").length(); j++) {
+
+								String parentComment = allMedia.getJSONArray("data").getJSONObject(i)
+										.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id")
+										+ "-" + igId + "-" + allMedia.getJSONArray("data").getJSONObject(i)
+												.getString("media_url").replace("-", "*das*");
+
 								author = new HashMap<>();
 								author.put("external_id", "cif-user-"
 										+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
@@ -218,16 +229,9 @@ public class Instagram {
 												.getJSONArray("data").getJSONObject(j).getString("username"));
 								extObj = new HashMap<>();
 								if (option.equals("1")) {
-									extObj.put("parent_id", "cif-media-"
-											+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
-											+ igId + "-"
-											+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+									extObj.put("parent_id", "cif-media-" + parentMedia);
 								}
-								extObj.put("external_id", "cif-comment-"
-										+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-												.getJSONArray("data").getJSONObject(j).getString("id")
-										+ "-" + igId + "-"
-										+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+								extObj.put("external_id", "cif-comment-" + parentComment);
 								extObj.put("message",
 										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 												.getJSONArray("data").getJSONObject(j).getString("text"));
@@ -255,20 +259,9 @@ public class Instagram {
 														.getJSONArray("data").getJSONObject(k).getString("username"));
 										extObj = new HashMap<>();
 										if (option.equals("1")) {
-											extObj.put("parent_id",
-													"cif-media-"
-															+ allMedia.getJSONArray("data").getJSONObject(i)
-																	.getString("id")
-															+ "-" + igId + "-" + allMedia.getJSONArray("data")
-																	.getJSONObject(i).getString("media_url"));
+											extObj.put("parent_id", "cif-media-" + parentMedia);
 										} else {
-											extObj.put("parent_id",
-													"cif-comment-"
-															+ allMedia.getJSONArray("data").getJSONObject(i)
-																	.getJSONObject("comments").getJSONArray("data")
-																	.getJSONObject(j).getString("id")
-															+ "-" + igId + "-" + allMedia.getJSONArray("data")
-																	.getJSONObject(i).getString("media_url"));
+											extObj.put("parent_id", "cif-comment-" + parentComment);
 										}
 
 										extObj.put("external_id",
