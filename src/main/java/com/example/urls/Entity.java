@@ -2,12 +2,12 @@ package com.example.urls;
 
 public class Entity {
 	// watsons
-	String CLIENT_ID = "186865125399490";
-	String CLIENT_SECRET = "8ab339714df67aa953c7842d193c470f";
+	// String CLIENT_ID = "186865125399490";
+	// String CLIENT_SECRET = "8ab339714df67aa953c7842d193c470f";
 
 	// gw
-	// public String CLIENT_ID = "376575612769500";
-	// public String CLIENT_SECRET = "c95fc0a354beb66dc9bb490e85762ec3";
+	public String CLIENT_ID = "376575612769500";
+	public String CLIENT_SECRET = "c95fc0a354beb66dc9bb490e85762ec3";
 	public String HEROKUDOMAIN = "https://java-cif-linkedin.herokuapp.com/";
 	public String CALLBACKURL = "https://java-cif-linkedin.herokuapp.com/instagram/callback";
 	public String FB_API_DOMAIN = "https://graph.facebook.com/v3.0";
