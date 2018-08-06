@@ -28,7 +28,7 @@ public class Entity {
 	}
 
 	public String createComment(String mediaId, String message, String token) {
-		String replyApi = FB_API_DOMAIN + "/" + mediaId + "/replies?message=" + message + "&access_token=" + token;
+		String replyApi = FB_API_DOMAIN + "/" + mediaId + "/comments?message=" + message + "&access_token=" + token;
 		return replyApi;
 	}
 }
