@@ -201,9 +201,7 @@ public class Instagram {
 								.getString("username"));
 						extObj = new HashMap<>();
 						extObj.put("external_id",
-								"cif-media-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
-										+ igId + "-"
-										+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+								"cif-media-" + parentMedia);
 						extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 						extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
 								.replace("+0000", "Z"));
