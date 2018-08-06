@@ -195,62 +195,70 @@ public class Instagram {
 						author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("owner")
 								.getString("username"));
 						extObj = new HashMap<>();
-						extObj.put("external_id",
-								"cif-media-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
+						extObj.put("external_id", "cif-media-"
+								+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
 						extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 						extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
 								.replace("+0000", "Z"));
 						extObj.put("author", author);
 						extObj.put("allow_channelback", true);
-						
-//						ArrayList<Object> displayInfoArray = new ArrayList<>();
-//						HashMap<String, String> displayInfo = new HashMap<>();
-//						displayInfo.put("type", /*"URI-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id")*/ "omniwear.com/integrations/instagram/display/comment/v1");
-//						displayInfo.put("data", /*"{\"priority\": \""
-//								+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}"*/ "{\"priority\": \"medium\"}");
-//						displayInfoArray.add(displayInfo);
-//						extObj.put("display_info", displayInfoArray);
-						
+
+						// ArrayList<Object> displayInfoArray = new ArrayList<>();
+						// HashMap<String, String> displayInfo = new HashMap<>();
+						// displayInfo.put("type", /*"URI-" +
+						// allMedia.getJSONArray("data").getJSONObject(i).getString("id")*/
+						// "omniwear.com/integrations/instagram/display/comment/v1");
+						// displayInfo.put("data", /*"{\"priority\": \""
+						// + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") +
+						// "\"}"*/ "{\"priority\": \"medium\"}");
+						// displayInfoArray.add(displayInfo);
+						// extObj.put("display_info", displayInfoArray);
+
 						extResource.add(extObj);
 						if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
 							for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 									.getJSONArray("data").length(); j++) {
 								author = new HashMap<>();
-								author.put("external_id",
-										"cif-user-"
-												+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getString("username")
-												+ "-" + igId);
-								author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-										.getJSONArray("data").getJSONObject(j).getString("username"));
+								author.put("external_id", "cif-user-"
+										+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+												.getJSONArray("data").getJSONObject(j).getString("username")
+										+ "-" + igId);
+								author.put("name",
+										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+												.getJSONArray("data").getJSONObject(j).getString("username"));
 								extObj = new HashMap<>();
 								if (option.equals("1")) {
-									extObj.put("parent_id", "cif-media-"
-											+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + igId);
+									extObj.put("parent_id",
+											"cif-media-"
+													+ allMedia.getJSONArray("data").getJSONObject(i).getString("id")
+													+ "-" + igId);
 								}
 								extObj.put("external_id",
-										"cif-comment-"
-												+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getString("id")
-												+ "-" + igId);
-								extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i)
-										.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("text"));
+										"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
+												.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
+												.getString("id") + "-" + igId);
+								extObj.put("message",
+										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+												.getJSONArray("data").getJSONObject(j).getString("text"));
 								extObj.put("created_at",
 										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 												.getJSONArray("data").getJSONObject(j).getString("timestamp")
 												.replace("+0000", "Z"));
 								extObj.put("author", author);
 								extObj.put("allow_channelback", true);
-								
-//								displayInfoArray = new ArrayList<>();
-//								displayInfo = new HashMap<>();
-//								displayInfo.put("type", /*"URI-" + allMedia.getJSONArray("data").getJSONObject(i)
-//										.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id")*/ "omniwear.com/integrations/instagram/display/comment/v1");
-//								displayInfo.put("data", /*"{\"priority\": \""
-//										+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") + "\"}"*/ "{\"priority\": \"low\"}");
-//								displayInfoArray.add(displayInfo);
-//								extObj.put("display_info", displayInfoArray);
-								
+
+								// displayInfoArray = new ArrayList<>();
+								// displayInfo = new HashMap<>();
+								// displayInfo.put("type", /*"URI-" +
+								// allMedia.getJSONArray("data").getJSONObject(i)
+								// .getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id")*/
+								// "omniwear.com/integrations/instagram/display/comment/v1");
+								// displayInfo.put("data", /*"{\"priority\": \""
+								// + allMedia.getJSONArray("data").getJSONObject(i).getString("media_url") +
+								// "\"}"*/ "{\"priority\": \"low\"}");
+								// displayInfoArray.add(displayInfo);
+								// extObj.put("display_info", displayInfoArray);
+
 								extResource.add(extObj);
 								if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 										.getJSONArray("data").getJSONObject(j).has("replies")) {
@@ -258,25 +266,27 @@ public class Instagram {
 											.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
 											.getJSONObject("replies").getJSONArray("data").length(); k++) {
 										author = new HashMap<>();
-										author.put("external_id", "cif-user-"
-												+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
-														.getJSONArray("data").getJSONObject(k).getString("username")
-												+ "-" + igId);
+										author.put("external_id",
+												"cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
+														.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
+														.getJSONObject("replies").getJSONArray("data").getJSONObject(k)
+														.getString("username") + "-" + igId);
 										author.put("name",
 												allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
 														.getJSONArray("data").getJSONObject(k).getString("username"));
 										extObj = new HashMap<>();
-										extObj.put("parent_id", "cif-comment-"
-												+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getString("id")
-												+ "-" + igId);
-										extObj.put("external_id", "cif-comment-"
-												+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
-														.getJSONArray("data").getJSONObject(k).getString("id")
-												+ "-" + igId);
+										extObj.put("parent_id",
+												"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
+														.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
+														.getString("id") + "-" + igId);
+										extObj.put("external_id",
+												"cif-comment-"
+														+ allMedia.getJSONArray("data").getJSONObject(i)
+																.getJSONObject("comments").getJSONArray("data")
+																.getJSONObject(j).getJSONObject("replies")
+																.getJSONArray("data").getJSONObject(k).getString("id")
+														+ "-" + igId);
 										extObj.put("message",
 												allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
@@ -293,7 +303,7 @@ public class Instagram {
 								}
 							}
 						}
-					
+
 					}
 				}
 			}
@@ -311,12 +321,12 @@ public class Instagram {
 	public ResponseEntity<Object> channelback(@RequestParam Map<String, String> paramMap)
 			throws JSONException, UnsupportedEncodingException {
 		System.out.println("/channelback");
-		System.out.println(paramMap.get("parent_id"));
-		System.out.println(paramMap.get("thread_id"));
+
+		JSONObject postComment = new JSONObject();
 
 		/* GET COMMENT ID */
 		String commentId = paramMap.get("parent_id").split("-")[2];
-//		String mediaId = paramMap.get("parent_id").split("-")[1];
+		String mediaId = paramMap.get("thread_id").split("-")[2];
 		String igId = paramMap.get("thread_id").split("-")[3];
 		String message = paramMap.get("message").toString();
 		JSONObject metadata = new JSONObject(paramMap.get("metadata").toString());
@@ -324,10 +334,18 @@ public class Instagram {
 		HitApi call = new HitApi();
 		Entity ent = new Entity();
 
-		JSONObject reply = call.hit(
-				ent.replyComment(commentId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")), "POST");
+		if (metadata.getString("option").equals("1")) {
+			postComment = call.hit(
+					ent.createComment(mediaId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")),
+					"POST");
+		} else {
+			postComment = call.hit(
+					ent.replyComment(commentId, URLEncoder.encode(message, "UTF-8"), metadata.getString("token")),
+					"POST");
+		}
+
 		HashMap<String, Object> response = new HashMap<>();
-		response.put("external_id", "cif-comment-" + reply.getString("id") + "-" + igId);
+		response.put("external_id", "cif-comment-" + postComment.getString("id") + "-" + igId);
 		response.put("allow_channelback", true);
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
