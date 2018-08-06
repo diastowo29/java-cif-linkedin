@@ -276,10 +276,17 @@ public class Instagram {
 														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
 														.getJSONArray("data").getJSONObject(k).getString("username"));
 										extObj = new HashMap<>();
-										extObj.put("parent_id",
-												"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
-														.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
-														.getString("id") + "-" + igId);
+										if (option.equals("1")) {
+											extObj.put("parent_id", "cif-media-"
+													+ allMedia.getJSONArray("data").getJSONObject(i).getString("id")
+													+ "-" + igId);
+										} else {
+											extObj.put("parent_id",
+													"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
+															.getJSONObject("comments").getJSONArray("data")
+															.getJSONObject(j).getString("id") + "-" + igId);
+										}
+
 										extObj.put("external_id",
 												"cif-comment-"
 														+ allMedia.getJSONArray("data").getJSONObject(i)
