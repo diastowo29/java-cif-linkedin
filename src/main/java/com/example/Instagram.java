@@ -311,9 +311,12 @@ public class Instagram {
 	public ResponseEntity<Object> channelback(@RequestParam Map<String, String> paramMap)
 			throws JSONException, UnsupportedEncodingException {
 		System.out.println("/channelback");
+		System.out.println(paramMap.get("parent_id"));
+		System.out.println(paramMap.get("thread_id"));
 
 		/* GET COMMENT ID */
 		String commentId = paramMap.get("parent_id").split("-")[2];
+//		String mediaId = paramMap.get("parent_id").split("-")[1];
 		String igId = paramMap.get("thread_id").split("-")[3];
 		String message = paramMap.get("message").toString();
 		JSONObject metadata = new JSONObject(paramMap.get("metadata").toString());
