@@ -188,7 +188,7 @@ public class Instagram {
 			// System.out.println(allMedia);
 			if (allMedia.has("data")) {
 				for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
-					if (i == 0) {
+					if (i != -1) {
 						HashMap<String, String> author = new HashMap<>();
 						author.put("external_id", "cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
 								.getJSONObject("owner").getString("username") + "-" + igId);
