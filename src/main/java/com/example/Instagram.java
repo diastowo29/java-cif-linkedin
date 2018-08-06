@@ -218,10 +218,10 @@ public class Instagram {
 												.getJSONArray("data").getJSONObject(j).getString("username"));
 								extObj = new HashMap<>();
 								if (option.equals("1")) {
-									extObj.put("parent_id",
-											"cif-media-"
-													+ allMedia.getJSONArray("data").getJSONObject(i).getString("id")
-													+ "-" + igId);
+									extObj.put("parent_id", "cif-media-"
+											+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
+											+ igId + "-"
+											+ allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
 								}
 								extObj.put("external_id", "cif-comment-"
 										+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
@@ -255,14 +255,20 @@ public class Instagram {
 														.getJSONArray("data").getJSONObject(k).getString("username"));
 										extObj = new HashMap<>();
 										if (option.equals("1")) {
-											extObj.put("parent_id", "cif-media-"
-													+ allMedia.getJSONArray("data").getJSONObject(i).getString("id")
-													+ "-" + igId);
+											extObj.put("parent_id",
+													"cif-media-"
+															+ allMedia.getJSONArray("data").getJSONObject(i)
+																	.getString("id")
+															+ "-" + igId + "-" + allMedia.getJSONArray("data")
+																	.getJSONObject(i).getString("media_url"));
 										} else {
 											extObj.put("parent_id",
-													"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
-															.getJSONObject("comments").getJSONArray("data")
-															.getJSONObject(j).getString("id") + "-" + igId);
+													"cif-comment-"
+															+ allMedia.getJSONArray("data").getJSONObject(i)
+																	.getJSONObject("comments").getJSONArray("data")
+																	.getJSONObject(j).getString("id")
+															+ "-" + igId + "-" + allMedia.getJSONArray("data")
+																	.getJSONObject(i).getString("media_url"));
 										}
 
 										extObj.put("external_id",
