@@ -31,9 +31,10 @@
 			// window.open("http://localhost:5000/instagram/callback?code=123", 'window', 'width=600,height=400');
 		}
 
-		function CallParent(code) {
+		function CallParent(code, appId, appSecret) {
 			console.log("parent called");
-			window.open("./submit?token=" + code, "_self");
+			window.open("./submit?token=" + code + "&appId=" + appId
+					+ "&appSecret=" + appSecret, "_self");
 		}
 	</script>
 </body>

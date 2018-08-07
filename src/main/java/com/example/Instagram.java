@@ -54,7 +54,6 @@ public class Instagram {
 			Model model) {
 		model.addAttribute("appId", appId);
 		model.addAttribute("appSecret", appSecret);
-		// Client newClient = clientRepo.save(new Client(0, appId, appSecret, null));
 		return "admin";
 	}
 
@@ -75,7 +74,8 @@ public class Instagram {
 	}
 
 	@RequestMapping("/submit")
-	String submitToken(@RequestParam("token") String token, Model model) {
+	String submitToken(@RequestParam("token") String token, @RequestParam("appId") String appId,
+			@RequestParam("appSecret") String appSecret, Model model) {
 		System.out.println("GET SUBMIT TOKEN: " + token);
 		String accToken = "";
 		HitApi calling = new HitApi();
@@ -84,10 +84,8 @@ public class Instagram {
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<>();
 		try {
 
-			JSONObject output = calling.hit(entity.GET_ACC_TOKEN_API + token, "GET");
+			JSONObject output = calling.hit(entity.getAccTokenApi(appId, appSecret) + token, "GET");
 			accToken = output.getString("access_token");
-			// accToken =
-			// "EAAcIvztqj7IBAIsFZAqZC5VieI82WSGIm1XWV8fqEJ6KMgDv0hQin3gCjFt857BkoiBZBSMSQoO5KghXsQZApmTrnMJafPkYCjhfQHNN9Sspq2b9FKOqPuQHbj0cR4X9jUv5u5g9nPitU8rPIxpXOwUzkW6DvMTyAz92qiAQs4ZBN5vnlelNumkCDvMCMiQvfykB4Wv4xHQZDZD";
 
 			try {
 
@@ -139,10 +137,14 @@ public class Instagram {
 	}
 
 	@RequestMapping("/callback")
-	String callBack(@RequestParam("code") String code, @RequestParam("state") String state, Model model) {
+	String callBack(@RequestParam("code") String code, @RequestParam("state") String state, Model model)
+			throws JSONException {
 		System.out.println("/callback");
+		JSONObject stateJson = new JSONObject(state.toString());
 		model.addAttribute("code", code);
-		System.out.println(state);
+		model.addAttribute("appId", stateJson.getString("appId"));
+		model.addAttribute("appSecret", stateJson.getString("appSecret"));
+
 		return "callback";
 	}
 
@@ -200,8 +202,7 @@ public class Instagram {
 						author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("owner")
 								.getString("username"));
 						extObj = new HashMap<>();
-						extObj.put("external_id",
-								"cif-media-" + parentMedia);
+						extObj.put("external_id", "cif-media-" + parentMedia);
 						extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 						extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
 								.replace("+0000", "Z"));
