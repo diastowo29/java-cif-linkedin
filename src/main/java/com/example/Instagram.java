@@ -193,7 +193,6 @@ public class Instagram {
 
 						String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
 								+ igId;
-						
 						HashMap<String, String> author = new HashMap<>();
 						author.put("external_id", "cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
 								.getJSONObject("owner").getString("username") + "-" + igId);
@@ -206,8 +205,8 @@ public class Instagram {
 								.replace("+0000", "Z"));
 						HashMap<String, String> fieldsObject = new HashMap<>();
 						fieldsObject.put("subject", parentMedia);
-						JSONArray fieldsArray = new JSONArray();
-						fieldsArray.put(fieldsObject);
+						ArrayList<Object> fieldsArray = new ArrayList<>();
+						fieldsArray.add(fieldsObject);
 						extObj.put("fields", fieldsArray);
 						extObj.put("author", author);
 						extObj.put("allow_channelback", true);
