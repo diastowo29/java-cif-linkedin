@@ -204,7 +204,8 @@ public class Instagram {
 						extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
 								.replace("+0000", "Z"));
 						HashMap<String, String> fieldsObject = new HashMap<>();
-						fieldsObject.put("subject", parentMedia);
+						fieldsObject.put("id", "subject");
+						fieldsObject.put("value", "Post - " + igId);
 						ArrayList<Object> fieldsArray = new ArrayList<>();
 						fieldsArray.add(fieldsObject);
 						extObj.put("fields", fieldsArray);
