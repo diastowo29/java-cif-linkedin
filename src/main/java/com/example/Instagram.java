@@ -207,7 +207,8 @@ public class Instagram {
 						displayObject.put("media_url",
 								allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
 						HashMap<String, Object> displayInfo = new HashMap<>();
-						displayInfo.put("type", igId + "-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
+						displayInfo.put("type", igId + "-"
+								+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + option);
 						displayInfo.put("data", displayObject);
 						ArrayList<Object> displayArray = new ArrayList<>();
 						displayArray.add(displayInfo);
