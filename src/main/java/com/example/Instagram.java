@@ -203,18 +203,22 @@ public class Instagram {
 						extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 						extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
 								.replace("+0000", "Z"));
-						
+
 						HashMap<String, String> displayObject = new HashMap<>();
-						
+
 						displayObject.put("media_url", "jelek pokoknya");
 						HashMap<String, Object> displayInfo = new HashMap<>();
-						displayInfo.put("type", igId + "-"
-								+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + option);
+						displayInfo.put("type",
+								/*
+								 * igId + "-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id") +
+								 * "-" + option
+								 */ "9ef45ff7-4aaa-4a58-8e77-"
+										+ allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
 						displayInfo.put("data", displayObject);
-						
+
 						ArrayList<Object> displayArray = new ArrayList<>();
 						displayArray.add(displayInfo);
-						
+
 						extObj.put("dsisplay_info", displayArray);
 						extObj.put("author", author);
 						extObj.put("allow_channelback", true);
