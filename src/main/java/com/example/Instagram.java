@@ -219,7 +219,7 @@ public class Instagram {
 						ArrayList<Object> displayArray = new ArrayList<>();
 						displayArray.add(displayInfo);
 
-						extObj.put("dsisplay_info", displayArray);
+						extObj.put("display_info", displayArray);
 						extObj.put("author", author);
 						extObj.put("allow_channelback", true);
 						extResource.add(extObj);
