@@ -205,18 +205,15 @@ public class Instagram {
 								.replace("+0000", "Z"));
 
 						HashMap<String, String> displayObject = new HashMap<>();
-
-						displayObject.put("media_url", "jelek pokoknya");
 						HashMap<String, Object> displayInfo = new HashMap<>();
-						displayInfo.put("type",
-								/*
-								 * igId + "-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id") +
-								 * "-" + option
-								 */ "9ef45ff7-4aaa-4a58-8e77-"
-										+ allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
+						ArrayList<Object> displayArray = new ArrayList<>();
+
+						displayObject.put("media_url",
+								allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+						displayInfo.put("type", igId + "-"
+								+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + option);
 						displayInfo.put("data", displayObject);
 
-						ArrayList<Object> displayArray = new ArrayList<>();
 						displayArray.add(displayInfo);
 
 						extObj.put("display_info", displayArray);
@@ -243,6 +240,20 @@ public class Instagram {
 								if (option.equals("1")) {
 									extObj.put("parent_id", "cif-media-" + parentMedia);
 								}
+
+								displayObject = new HashMap<>();
+								displayInfo = new HashMap<>();
+								displayArray = new ArrayList<>();
+
+								displayObject.put("media_url",
+										allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+								displayInfo.put("type",
+										igId + "-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id")
+												+ "-" + option);
+								displayInfo.put("data", displayObject);
+
+								displayArray.add(displayInfo);
+
 								extObj.put("external_id", "cif-comment-" + parentComment);
 								extObj.put("message",
 										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
@@ -275,6 +286,20 @@ public class Instagram {
 										} else {
 											extObj.put("parent_id", "cif-comment-" + parentComment);
 										}
+										
+										displayObject = new HashMap<>();
+										displayInfo = new HashMap<>();
+										displayArray = new ArrayList<>();
+
+										displayObject.put("media_url",
+												allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+										displayInfo.put("type",
+												igId + "-"
+														+ allMedia.getJSONArray("data").getJSONObject(i).getString("id")
+														+ "-" + option);
+										displayInfo.put("data", displayObject);
+
+										displayArray.add(displayInfo);
 
 										extObj.put("external_id",
 												"cif-comment-"
