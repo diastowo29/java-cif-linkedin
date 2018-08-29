@@ -189,7 +189,7 @@ public class Instagram {
 
 			JSONObject allMedia = calling.hit(entity.getMediaUrl(igId, igToken), "GET");
 			if (allMedia.has("data")) {
-				if (igId.equals("17841406514405225")) {
+				if (igId.equals("17841402968277029")) {
 					for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
 						if (extResource.size() < 200) {
 							String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
