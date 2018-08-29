@@ -330,140 +330,142 @@ public class Instagram {
 					}
 				} else {
 					for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
+						if (extResource.size() < 200) {
+							String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
+									+ igId;
+							HashMap<String, String> author = new HashMap<>();
+							author.put("external_id", "cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
+									.getJSONObject("owner").getString("username") + "-" + igId);
+							author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("owner")
+									.getString("username"));
+							extObj = new HashMap<>();
+							extObj.put("external_id", "cif-media-" + parentMedia);
+							extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+							extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i)
+									.getString("timestamp").replace("+0000", "Z"));
 
-						String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
-								+ igId;
-						HashMap<String, String> author = new HashMap<>();
-						author.put("external_id", "cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
-								.getJSONObject("owner").getString("username") + "-" + igId);
-						author.put("name", allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("owner")
-								.getString("username"));
-						extObj = new HashMap<>();
-						extObj.put("external_id", "cif-media-" + parentMedia);
-						extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
-						extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i).getString("timestamp")
-								.replace("+0000", "Z"));
+							HashMap<String, String> displayObject = new HashMap<>();
+							HashMap<String, Object> displayInfo = new HashMap<>();
+							ArrayList<Object> displayArray = new ArrayList<>();
 
-						HashMap<String, String> displayObject = new HashMap<>();
-						HashMap<String, Object> displayInfo = new HashMap<>();
-						ArrayList<Object> displayArray = new ArrayList<>();
+							displayObject.put("media_url",
+									allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+							displayInfo.put("type", "cif-media-" + parentMedia);
+							displayInfo.put("data", displayObject);
 
-						displayObject.put("media_url",
-								allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
-						displayInfo.put("type", "cif-media-" + parentMedia);
-						displayInfo.put("data", displayObject);
+							displayArray.add(displayInfo);
 
-						displayArray.add(displayInfo);
+							extObj.put("display_info", displayArray);
+							extObj.put("author", author);
+							extObj.put("allow_channelback", true);
+							extResource.add(extObj);
+							if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
+								for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i)
+										.getJSONObject("comments").getJSONArray("data").length(); j++) {
 
-						extObj.put("display_info", displayArray);
-						extObj.put("author", author);
-						extObj.put("allow_channelback", true);
-						extResource.add(extObj);
-						if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
-							for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-									.getJSONArray("data").length(); j++) {
-
-								String parentComment = allMedia.getJSONArray("data").getJSONObject(i)
-										.getJSONObject("comments").getJSONArray("data").getJSONObject(j).getString("id")
-										+ "-" + igId;
-
-								author = new HashMap<>();
-								author.put("external_id", "cif-user-"
-										+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-												.getJSONArray("data").getJSONObject(j).getString("username")
-										+ "-" + igId);
-								author.put("name",
-										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-												.getJSONArray("data").getJSONObject(j).getString("username"));
-								extObj = new HashMap<>();
-								if (option.equals("1")) {
-									extObj.put("parent_id", "cif-media-" + parentMedia);
-								}
-
-								displayObject = new HashMap<>();
-								displayInfo = new HashMap<>();
-								displayArray = new ArrayList<>();
-
-								displayObject.put("media_url",
-										allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
-								displayInfo.put("type", "cif-comment-" + parentComment);
-								displayInfo.put("data", displayObject);
-
-								displayArray.add(displayInfo);
-								extObj.put("display_info", displayArray);
-
-								extObj.put("external_id", "cif-comment-" + parentComment);
-								extObj.put("message",
-										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-												.getJSONArray("data").getJSONObject(j).getString("text"));
-								extObj.put("created_at",
-										allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-												.getJSONArray("data").getJSONObject(j).getString("timestamp")
-												.replace("+0000", "Z"));
-								extObj.put("author", author);
-								extObj.put("allow_channelback", true);
-								extResource.add(extObj);
-								if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-										.getJSONArray("data").getJSONObject(j).has("replies")) {
-									for (int k = 0; k < allMedia.getJSONArray("data").getJSONObject(i)
+									String parentComment = allMedia.getJSONArray("data").getJSONObject(i)
 											.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
-											.getJSONObject("replies").getJSONArray("data").length(); k++) {
-										author = new HashMap<>();
-										author.put("external_id",
-												"cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
-														.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
-														.getJSONObject("replies").getJSONArray("data").getJSONObject(k)
-														.getString("username") + "-" + igId);
-										author.put("name",
-												allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
-														.getJSONArray("data").getJSONObject(k).getString("username"));
-										extObj = new HashMap<>();
-										if (option.equals("1")) {
-											extObj.put("parent_id", "cif-media-" + parentMedia);
-										} else {
-											extObj.put("parent_id", "cif-comment-" + parentComment);
+											.getString("id") + "-" + igId;
+
+									author = new HashMap<>();
+									author.put("external_id", "cif-user-"
+											+ allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getString("username")
+											+ "-" + igId);
+									author.put("name",
+											allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getString("username"));
+									extObj = new HashMap<>();
+									if (option.equals("1")) {
+										extObj.put("parent_id", "cif-media-" + parentMedia);
+									}
+
+									displayObject = new HashMap<>();
+									displayInfo = new HashMap<>();
+									displayArray = new ArrayList<>();
+
+									displayObject.put("media_url",
+											allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
+									displayInfo.put("type", "cif-comment-" + parentComment);
+									displayInfo.put("data", displayObject);
+
+									displayArray.add(displayInfo);
+									extObj.put("display_info", displayArray);
+
+									extObj.put("external_id", "cif-comment-" + parentComment);
+									extObj.put("message",
+											allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getString("text"));
+									extObj.put("created_at",
+											allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+													.getJSONArray("data").getJSONObject(j).getString("timestamp")
+													.replace("+0000", "Z"));
+									extObj.put("author", author);
+									extObj.put("allow_channelback", true);
+									extResource.add(extObj);
+									if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
+											.getJSONArray("data").getJSONObject(j).has("replies")) {
+										for (int k = 0; k < allMedia.getJSONArray("data").getJSONObject(i)
+												.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
+												.getJSONObject("replies").getJSONArray("data").length(); k++) {
+											author = new HashMap<>();
+											author.put("external_id",
+													"cif-user-" + allMedia.getJSONArray("data").getJSONObject(i)
+															.getJSONObject("comments").getJSONArray("data")
+															.getJSONObject(j).getJSONObject("replies")
+															.getJSONArray("data").getJSONObject(k).getString("username")
+															+ "-" + igId);
+											author.put("name", allMedia.getJSONArray("data").getJSONObject(i)
+													.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
+													.getJSONObject("replies").getJSONArray("data").getJSONObject(k)
+													.getString("username"));
+											extObj = new HashMap<>();
+											if (option.equals("1")) {
+												extObj.put("parent_id", "cif-media-" + parentMedia);
+											} else {
+												extObj.put("parent_id", "cif-comment-" + parentComment);
+											}
+
+											displayObject = new HashMap<>();
+											displayInfo = new HashMap<>();
+											displayArray = new ArrayList<>();
+
+											displayObject.put("media_url", allMedia.getJSONArray("data")
+													.getJSONObject(i).getString("media_url"));
+											if (option.equals("1")) {
+												displayInfo.put("type", "cif-media-" + parentMedia);
+											} else {
+												displayInfo.put("type", "cif-comment-" + parentComment);
+											}
+											displayInfo.put("data", displayObject);
+
+											displayArray.add(displayInfo);
+											extObj.put("display_info", displayArray);
+
+											extObj.put("external_id",
+													"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
+															.getJSONObject("comments").getJSONArray("data")
+															.getJSONObject(j).getJSONObject("replies")
+															.getJSONArray("data").getJSONObject(k).getString("id") + "-"
+															+ igId);
+											extObj.put("message",
+													allMedia.getJSONArray("data").getJSONObject(i)
+															.getJSONObject("comments").getJSONArray("data")
+															.getJSONObject(j).getJSONObject("replies")
+															.getJSONArray("data").getJSONObject(k).getString("text"));
+											extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i)
+													.getJSONObject("comments").getJSONArray("data").getJSONObject(j)
+													.getJSONObject("replies").getJSONArray("data").getJSONObject(k)
+													.getString("timestamp").replace("+0000", "Z"));
+											extObj.put("author", author);
+											extObj.put("allow_channelback", true);
+											extResource.add(extObj);
 										}
-
-										displayObject = new HashMap<>();
-										displayInfo = new HashMap<>();
-										displayArray = new ArrayList<>();
-
-										displayObject.put("media_url",
-												allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
-										if (option.equals("1")) {
-											displayInfo.put("type", "cif-media-" + parentMedia);
-										} else {
-											displayInfo.put("type", "cif-comment-" + parentComment);
-										}
-										displayInfo.put("data", displayObject);
-
-										displayArray.add(displayInfo);
-										extObj.put("display_info", displayArray);
-
-										extObj.put("external_id",
-												"cif-comment-"
-														+ allMedia.getJSONArray("data").getJSONObject(i)
-																.getJSONObject("comments").getJSONArray("data")
-																.getJSONObject(j).getJSONObject("replies")
-																.getJSONArray("data").getJSONObject(k).getString("id")
-														+ "-" + igId);
-										extObj.put("message",
-												allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
-														.getJSONArray("data").getJSONObject(k).getString("text"));
-										extObj.put("created_at",
-												allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
-														.getJSONArray("data").getJSONObject(j).getJSONObject("replies")
-														.getJSONArray("data").getJSONObject(k).getString("timestamp")
-														.replace("+0000", "Z"));
-										extObj.put("author", author);
-										extObj.put("allow_channelback", true);
-										extResource.add(extObj);
 									}
 								}
 							}
 						}
+
 					}
 				}
 			}
