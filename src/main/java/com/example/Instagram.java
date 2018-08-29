@@ -180,6 +180,7 @@ public class Instagram {
 		String igId = "";
 		String igToken = "";
 		String option = "";
+		System.out.println(paramMap.get("metadata").toString());
 		try {
 			jobject = new JSONObject(paramMap.get("metadata").toString());
 			igId = jobject.getString("igId");
