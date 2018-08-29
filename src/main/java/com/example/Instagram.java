@@ -154,7 +154,7 @@ public class Instagram {
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("name", "Instagram Integration Java");
 		hashMap.put("id", "zendesk-internal-instagram-integration-java");
-		hashMap.put("author", "Diastowo Faryduana");
+		hashMap.put("author", "Trees Solutions");
 		hashMap.put("version", "v1.0");
 		HashMap<String, String> urlMap = new HashMap<>();
 		urlMap.put("admin_ui", entity.HEROKUDOMAIN + "instagram/");
@@ -210,8 +210,7 @@ public class Instagram {
 
 						displayObject.put("media_url",
 								allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
-						displayInfo.put("type", igId + "-"
-								+ allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-" + option);
+						displayInfo.put("type", "cif-media-" + parentMedia);
 						displayInfo.put("data", displayObject);
 
 						displayArray.add(displayInfo);
@@ -247,12 +246,11 @@ public class Instagram {
 
 								displayObject.put("media_url",
 										allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
-								displayInfo.put("type",
-										igId + "-" + allMedia.getJSONArray("data").getJSONObject(i).getString("id")
-												+ "-" + option);
+								displayInfo.put("type", "cif-comment-" + parentComment);
 								displayInfo.put("data", displayObject);
 
 								displayArray.add(displayInfo);
+								extObj.put("display_info", displayArray);
 
 								extObj.put("external_id", "cif-comment-" + parentComment);
 								extObj.put("message",
@@ -286,20 +284,22 @@ public class Instagram {
 										} else {
 											extObj.put("parent_id", "cif-comment-" + parentComment);
 										}
-										
+
 										displayObject = new HashMap<>();
 										displayInfo = new HashMap<>();
 										displayArray = new ArrayList<>();
 
 										displayObject.put("media_url",
 												allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
-										displayInfo.put("type",
-												igId + "-"
-														+ allMedia.getJSONArray("data").getJSONObject(i).getString("id")
-														+ "-" + option);
+										if (option.equals("1")) {
+											displayInfo.put("type", "cif-media-" + parentMedia);
+										} else {
+											displayInfo.put("type", "cif-comment-" + parentComment);
+										}
 										displayInfo.put("data", displayObject);
 
 										displayArray.add(displayInfo);
+										extObj.put("display_info", displayArray);
 
 										extObj.put("external_id",
 												"cif-comment-"
