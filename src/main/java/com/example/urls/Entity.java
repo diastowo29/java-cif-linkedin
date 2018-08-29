@@ -9,8 +9,8 @@ public class Entity {
 	// public String CLIENT_ID = "376575612769500";
 	// public String CLIENT_SECRET = "c95fc0a354beb66dc9bb490e85762ec3";
 
-	public String HEROKUDOMAIN = "https://java-cif-linkedin.herokuapp.com/";
-	public String CALLBACKURL = "https://java-cif-linkedin.herokuapp.com/instagram/callback";
+	public String HEROKUDOMAIN = "https://java-cif-instagram.herokuapp.com/";
+	public String CALLBACKURL = "https://java-cif-instagram.herokuapp.com/instagram/callback";
 	public String FB_API_DOMAIN = "https://graph.facebook.com/v3.0";
 	public String GET_ACC_ID_API = FB_API_DOMAIN + "/me/accounts?fields=connected_instagram_account,name&access_token=";
 
