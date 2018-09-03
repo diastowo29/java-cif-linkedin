@@ -189,7 +189,7 @@ public class Instagram {
 
 			JSONObject allMedia = calling.hit(entity.getMediaUrl(igId, igToken), "GET");
 			if (allMedia.has("data")) {
-				if (igId.equals("17841402968277029")) {
+				if (igId.equals("376575612769500")) {
 					for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
 						if (extResource.size() < 200) {
 							String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
@@ -220,6 +220,7 @@ public class Instagram {
 									allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 							displayInfo.put("type", "cif-caption-" + parentMedia);
 							displayInfo.put("data", displayObject);
+							displayArray.add(displayInfo);
 							
 
 							extObj.put("display_info", displayArray);
@@ -262,6 +263,7 @@ public class Instagram {
 											allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 									displayInfo.put("type", "cif-caption-" + parentMedia);
 									displayInfo.put("data", displayObject);
+									displayArray.add(displayInfo);
 									
 									extObj.put("display_info", displayArray);
 
@@ -318,6 +320,7 @@ public class Instagram {
 													allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 											displayInfo.put("type", "cif-caption-" + parentMedia);
 											displayInfo.put("data", displayObject);
+											displayArray.add(displayInfo);
 											
 											extObj.put("display_info", displayArray);
 											extObj.put("external_id",
@@ -376,8 +379,8 @@ public class Instagram {
 									allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 							displayInfo.put("type", "cif-caption-" + parentMedia);
 							displayInfo.put("data", displayObject);
+							displayArray.add(displayInfo);
 							
-
 							extObj.put("display_info", displayArray);
 							extObj.put("author", author);
 							extObj.put("allow_channelback", true);
@@ -418,6 +421,7 @@ public class Instagram {
 											allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 									displayInfo.put("type", "cif-caption-" + parentMedia);
 									displayInfo.put("data", displayObject);
+									displayArray.add(displayInfo);
 									
 									extObj.put("display_info", displayArray);
 
@@ -474,6 +478,7 @@ public class Instagram {
 													allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
 											displayInfo.put("type", "cif-caption-" + parentMedia);
 											displayInfo.put("data", displayObject);
+											displayArray.add(displayInfo);
 											
 											extObj.put("display_info", displayArray);
 											extObj.put("external_id",
