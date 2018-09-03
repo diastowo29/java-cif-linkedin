@@ -213,8 +213,14 @@ public class Instagram {
 									allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
 							displayInfo.put("type", "cif-media-" + parentMedia);
 							displayInfo.put("data", displayObject);
-
 							displayArray.add(displayInfo);
+							displayObject = new HashMap<>();
+							displayInfo = new HashMap<>();
+							displayObject.put("media_caption",
+									allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+							displayInfo.put("type", "cif-caption-" + parentMedia);
+							displayInfo.put("data", displayObject);
+							
 
 							extObj.put("display_info", displayArray);
 							extObj.put("author", author);
@@ -249,8 +255,14 @@ public class Instagram {
 											allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
 									displayInfo.put("type", "cif-comment-" + parentComment);
 									displayInfo.put("data", displayObject);
-
 									displayArray.add(displayInfo);
+									displayObject = new HashMap<>();
+									displayInfo = new HashMap<>();
+									displayObject.put("media_caption",
+											allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+									displayInfo.put("type", "cif-caption-" + parentMedia);
+									displayInfo.put("data", displayObject);
+									
 									extObj.put("display_info", displayArray);
 
 									extObj.put("external_id", "cif-comment-" + parentComment);
@@ -299,10 +311,15 @@ public class Instagram {
 												displayInfo.put("type", "cif-comment-" + parentComment);
 											}
 											displayInfo.put("data", displayObject);
-
 											displayArray.add(displayInfo);
+											displayObject = new HashMap<>();
+											displayInfo = new HashMap<>();
+											displayObject.put("media_caption",
+													allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+											displayInfo.put("type", "cif-caption-" + parentMedia);
+											displayInfo.put("data", displayObject);
+											
 											extObj.put("display_info", displayArray);
-
 											extObj.put("external_id",
 													"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
 															.getJSONObject("comments").getJSONArray("data")
