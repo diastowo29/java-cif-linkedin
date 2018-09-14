@@ -528,7 +528,7 @@ public class Instagram {
 		/* GET COMMENT ID */
 		String commentId = paramMap.get("parent_id").split("-")[2];
 		String mediaId = paramMap.get("thread_id").split("-")[2];
-		String mediaUrl = paramMap.get("thread_id").split("-")[4];
+		// String mediaUrl = paramMap.get("thread_id").split("-")[4];
 		String igId = paramMap.get("thread_id").split("-")[3];
 		String message = paramMap.get("message").toString();
 		JSONObject metadata = new JSONObject(paramMap.get("metadata").toString());
@@ -547,7 +547,7 @@ public class Instagram {
 		}
 
 		HashMap<String, Object> response = new HashMap<>();
-		response.put("external_id", "cif-comment-" + postComment.getString("id") + "-" + igId + "-" + mediaUrl);
+		response.put("external_id", "cif-comment-" + postComment.getString("id") + "-" + igId /* + "-" + mediaUrl */);
 		response.put("allow_channelback", true);
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
