@@ -522,7 +522,7 @@ public class Instagram {
 	public ResponseEntity<Object> channelback(@RequestParam Map<String, String> paramMap)
 			throws JSONException, UnsupportedEncodingException {
 		System.out.println("/channelback");
-
+		System.out.println(paramMap);
 		JSONObject postComment = new JSONObject();
 
 		/* GET COMMENT ID */
