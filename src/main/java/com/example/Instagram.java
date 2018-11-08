@@ -230,7 +230,10 @@ public class Instagram {
 							extObj.put("allow_channelback", true);
 							
 							tagsArray.add(allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
-							fieldsArray.add(new JSONObject().put("id", "tags").put("value", tagsArray));
+							HashMap<String, Object> fieldsObj = new HashMap<>();
+							fieldsObj.put("id", "tags");
+							fieldsObj.put("value", tagsArray);
+							fieldsArray.add(fieldsObj);
 							extObj.put("fields", fieldsArray);
 							
 							extResource.add(extObj);
@@ -285,10 +288,6 @@ public class Instagram {
 									extObj.put("author", author);
 									extObj.put("allow_channelback", true);
 									
-									tagsArray = new ArrayList<>();
-									fieldsArray = new ArrayList<>();
-									tagsArray.add(allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
-									fieldsArray.add(new JSONObject().put("id", "tags").put("value", tagsArray));
 									extObj.put("fields", fieldsArray);
 									
 									extResource.add(extObj);
@@ -355,10 +354,6 @@ public class Instagram {
 											extObj.put("author", author);
 											extObj.put("allow_channelback", true);
 											
-											tagsArray = new ArrayList<>();
-											fieldsArray = new ArrayList<>();
-											tagsArray.add(allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
-											fieldsArray.add(new JSONObject().put("id", "tags").put("value", tagsArray));
 											extObj.put("fields", fieldsArray);
 											
 											extResource.add(extObj);
