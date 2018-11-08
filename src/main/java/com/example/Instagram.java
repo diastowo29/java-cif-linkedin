@@ -388,8 +388,6 @@ public class Instagram {
 							HashMap<String, String> displayObject = new HashMap<>();
 							HashMap<String, Object> displayInfo = new HashMap<>();
 							ArrayList<Object> displayArray = new ArrayList<>();
-							ArrayList<Object> fieldsArray = new ArrayList<>();
-							ArrayList<String> tagsArray = new ArrayList<>();
 
 							displayObject.put("media_url",
 									allMedia.getJSONArray("data").getJSONObject(i).getString("media_url"));
@@ -407,13 +405,6 @@ public class Instagram {
 							extObj.put("display_info", displayArray);
 							extObj.put("author", author);
 							extObj.put("allow_channelback", true);
-							
-							tagsArray = new ArrayList<>();
-							fieldsArray = new ArrayList<>();
-							tagsArray.add(allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
-							fieldsArray.add(new JSONObject().put("id", "tags").put("value", tagsArray));
-							extObj.put("fields", fieldsArray);
-							
 							extResource.add(extObj);
 							if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
 								for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i)
@@ -465,13 +456,6 @@ public class Instagram {
 													.replace("+0000", "Z"));
 									extObj.put("author", author);
 									extObj.put("allow_channelback", true);
-									
-									tagsArray = new ArrayList<>();
-									fieldsArray = new ArrayList<>();
-									tagsArray.add(allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
-									fieldsArray.add(new JSONObject().put("id", "tags").put("value", tagsArray));
-									extObj.put("fields", fieldsArray);
-									
 									extResource.add(extObj);
 									if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 											.getJSONArray("data").getJSONObject(j).has("replies")) {
@@ -535,13 +519,6 @@ public class Instagram {
 													.getString("timestamp").replace("+0000", "Z"));
 											extObj.put("author", author);
 											extObj.put("allow_channelback", true);
-											
-											tagsArray = new ArrayList<>();
-											fieldsArray = new ArrayList<>();
-											tagsArray.add(allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
-											fieldsArray.add(new JSONObject().put("id", "tags").put("value", tagsArray));
-											extObj.put("fields", fieldsArray);
-											
 											extResource.add(extObj);
 										}
 									}
