@@ -30,17 +30,18 @@
 	
 		function changeOption (option) {
 			$('.mainDivIgName > div').each(function () {
-		        console.log($(this).first()[0].children[0]);
+		        console.log();
+		        var _href = $($(this).first()[0].children[0]).attr("href");
+		        console.log(_href.indexOf('&option'));
+				if (_href.indexOf('&option') == -1) {
+					$(".list-group-item").attr("href", _href + "&option=" + option);
+				} else {
+					$(".list-group-item").attr("href", _href.slice(0, _href.indexOf("&option")) + "&option=" + option);
+				}
 		      });
 
-			var _href = $(".list-group-item").attr("href");
-			console.log(_href.indexOf('&option'));
-			if (_href.indexOf('&option') == -1) {
-				$(".list-group-item").attr("href", _href + "&option=" + option);
-			} else {
-				$(".list-group-item").attr("href", _href.slice(0, _href.indexOf("&option")) + "&option=" + option);
-			}
-		    
+			
+			
 		}
 	</script>
 </body>
