@@ -30,8 +30,7 @@
 	
 		function changeOption (option) {
 			$('.mainDivIgName > div').each(function () {
-		        console.log($(this).first().first());
-		        
+		        console.log($(this).first()[0].children[0]);
 		      });
 
 			var _href = $(".list-group-item").attr("href");
