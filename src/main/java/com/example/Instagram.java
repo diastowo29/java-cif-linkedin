@@ -123,6 +123,7 @@ public class Instagram {
 		hashMap.put("returnUrl", RETURNURL);
 		System.out.println("RETURN URL: " + RETURNURL);
 		hashMap.put("igId", igId);
+		System.out.println("igName: " + igName);
 		try {
 			hashMap.put("name", "Instagram - " + URLDecoder.decode(igName, "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
@@ -223,19 +224,18 @@ public class Instagram {
 							displayInfo.put("type", "cif-caption-" + parentMedia);
 							displayInfo.put("data", displayObject);
 							displayArray.add(displayInfo);
-							
 
 							extObj.put("display_info", displayArray);
 							extObj.put("author", author);
 							extObj.put("allow_channelback", true);
-							
+
 							tagsArray.add("ig_" + allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
 							HashMap<String, Object> fieldsObj = new HashMap<>();
 							fieldsObj.put("id", "tags");
 							fieldsObj.put("value", tagsArray);
 							fieldsArray.add(fieldsObj);
 							extObj.put("fields", fieldsArray);
-							
+
 							extResource.add(extObj);
 							if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
 								for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i)
@@ -274,7 +274,7 @@ public class Instagram {
 									displayInfo.put("type", "cif-caption-" + parentMedia);
 									displayInfo.put("data", displayObject);
 									displayArray.add(displayInfo);
-									
+
 									extObj.put("display_info", displayArray);
 
 									extObj.put("external_id", "cif-comment-" + parentComment);
@@ -287,9 +287,9 @@ public class Instagram {
 													.replace("+0000", "Z"));
 									extObj.put("author", author);
 									extObj.put("allow_channelback", true);
-									
+
 									extObj.put("fields", fieldsArray);
-									
+
 									extResource.add(extObj);
 									if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 											.getJSONArray("data").getJSONObject(j).has("replies")) {
@@ -329,12 +329,12 @@ public class Instagram {
 											displayArray.add(displayInfo);
 											displayObject = new HashMap<>();
 											displayInfo = new HashMap<>();
-											displayObject.put("media_caption",
-													allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+											displayObject.put("media_caption", allMedia.getJSONArray("data")
+													.getJSONObject(i).getString("caption"));
 											displayInfo.put("type", "cif-caption-" + parentMedia);
 											displayInfo.put("data", displayObject);
 											displayArray.add(displayInfo);
-											
+
 											extObj.put("display_info", displayArray);
 											extObj.put("external_id",
 													"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
@@ -353,9 +353,9 @@ public class Instagram {
 													.getString("timestamp").replace("+0000", "Z"));
 											extObj.put("author", author);
 											extObj.put("allow_channelback", true);
-											
+
 											extObj.put("fields", fieldsArray);
-											
+
 											extResource.add(extObj);
 										}
 									}
@@ -398,18 +398,18 @@ public class Instagram {
 							displayInfo.put("type", "cif-caption-" + parentMedia);
 							displayInfo.put("data", displayObject);
 							displayArray.add(displayInfo);
-							
+
 							extObj.put("display_info", displayArray);
 							extObj.put("author", author);
 							extObj.put("allow_channelback", true);
-							
+
 							tagsArray.add("ig_" + allMedia.getJSONArray("data").getJSONObject(i).getString("id"));
 							HashMap<String, Object> fieldsObj = new HashMap<>();
 							fieldsObj.put("id", "tags");
 							fieldsObj.put("value", tagsArray);
 							fieldsArray.add(fieldsObj);
 							extObj.put("fields", fieldsArray);
-							
+
 							extResource.add(extObj);
 							if (allMedia.getJSONArray("data").getJSONObject(i).has("comments")) {
 								for (int j = 0; j < allMedia.getJSONArray("data").getJSONObject(i)
@@ -448,7 +448,7 @@ public class Instagram {
 									displayInfo.put("type", "cif-caption-" + parentMedia);
 									displayInfo.put("data", displayObject);
 									displayArray.add(displayInfo);
-									
+
 									extObj.put("display_info", displayArray);
 
 									extObj.put("external_id", "cif-comment-" + parentComment);
@@ -461,9 +461,9 @@ public class Instagram {
 													.replace("+0000", "Z"));
 									extObj.put("author", author);
 									extObj.put("allow_channelback", true);
-									
+
 									extObj.put("fields", fieldsArray);
-									
+
 									extResource.add(extObj);
 									if (allMedia.getJSONArray("data").getJSONObject(i).getJSONObject("comments")
 											.getJSONArray("data").getJSONObject(j).has("replies")) {
@@ -503,12 +503,12 @@ public class Instagram {
 											displayArray.add(displayInfo);
 											displayObject = new HashMap<>();
 											displayInfo = new HashMap<>();
-											displayObject.put("media_caption",
-													allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+											displayObject.put("media_caption", allMedia.getJSONArray("data")
+													.getJSONObject(i).getString("caption"));
 											displayInfo.put("type", "cif-caption-" + parentMedia);
 											displayInfo.put("data", displayObject);
 											displayArray.add(displayInfo);
-											
+
 											extObj.put("display_info", displayArray);
 											extObj.put("external_id",
 													"cif-comment-" + allMedia.getJSONArray("data").getJSONObject(i)
@@ -527,9 +527,9 @@ public class Instagram {
 													.getString("timestamp").replace("+0000", "Z"));
 											extObj.put("author", author);
 											extObj.put("allow_channelback", true);
-											
+
 											extObj.put("fields", fieldsArray);
-											
+
 											extResource.add(extObj);
 										}
 									}
