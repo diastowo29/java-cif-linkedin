@@ -8,7 +8,7 @@
 <body>
 	<div class="container">
 		<div class="row" style="padding: 40px;">
-			<div class="col-12" align="center">
+			<div class="col-12 mainDivIgName" align="center">
 				<p>Select your account..</p>
 				<div class="list-group" th:each="namelist : ${igList}">
 					<a th:href="@{'submittoken?getId=' + ${namelist.id} + '&name=' + ${namelist.name} + '&token=' + ${namelist.token}} + '&option=1'" th:class="'list-group-item list-' + ${namelist.id}" th:text="${namelist.name}"></a>
@@ -27,6 +27,9 @@
 	<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+	$('.mainDivIgName > div').each(function () {
+        console.log(this);
+      });
 		function changeOption (option) {
 
 			var _href = $(".list-group-item").attr("href");
@@ -36,9 +39,7 @@
 			} else {
 				$(".list-group-item").attr("href", _href.slice(0, _href.indexOf("&option")) + "&option=" + option);
 			}
-		    $('.list-group-item > a').each(function () {
-		        console.log(this);
-		      });
+		    
 		}
 	</script>
 </body>
