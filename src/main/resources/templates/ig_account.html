@@ -27,10 +27,12 @@
 	<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	$('.mainDivIgName > div').each(function () {
-        console.log(this);
-      });
+	
 		function changeOption (option) {
+			$('.mainDivIgName > div').each(function () {
+		        console.log(this.children().first());
+		        
+		      });
 
 			var _href = $(".list-group-item").attr("href");
 			console.log(_href.indexOf('&option'));
