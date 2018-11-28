@@ -31,13 +31,12 @@
 		function changeOption (option) {
 			$('.mainDivIgName > div').each(function () {
 		        var href = $($(this).first()[0]).children()[0].id;
-		        console.log(href);
 		        var _href = $("#" + href).attr("href");
-		        console.log(_href.indexOf('&option'));
+		        console.log(href);
 				if (_href.indexOf('&option') == -1) {
-					$(".list-group-item").attr("href", _href + "&option=" + option);
+					$("#" + href).attr("href", _href + "&option=" + option);
 				} else {
-					$(".list-group-item").attr("href", _href.slice(0, _href.indexOf("&option")) + "&option=" + option);
+					$("#" + href).attr("href", _href.slice(0, _href.indexOf("&option")) + "&option=" + option);
 				}
 		      });
 		}
