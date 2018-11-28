@@ -30,8 +30,9 @@
 	
 		function changeOption (option) {
 			$('.mainDivIgName > div').each(function () {
-		        console.log();
-		        var _href = $("#" + $($(this).first()[0]).children()[0].id).attr("href");
+		        var href = $($(this).first()[0]).children()[0].id;
+		        console.log(href);
+		        var _href = $("#" + href).attr("href");
 		        console.log(_href.indexOf('&option'));
 				if (_href.indexOf('&option') == -1) {
 					$(".list-group-item").attr("href", _href + "&option=" + option);
