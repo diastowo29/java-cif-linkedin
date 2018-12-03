@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HitApi {
+public class HitApi { 
 	public JSONObject hit(String newUrl, String method) {
 		JSONObject response = new JSONObject();
 		try {
