@@ -193,6 +193,13 @@ public class Instagram {
 				if (igId.equals("17841406514405225")) {
 					for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
 						if (extResource.size() < 200) {
+							String caption = "";
+							try {
+								caption = allMedia.getJSONArray("data").getJSONObject(i).getString("caption");
+							} catch (JSONException e) {
+								e.printStackTrace();
+								caption = "Post without caption..";
+							}
 							String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
 									+ igId;
 							HashMap<String, String> author = new HashMap<>();
@@ -202,7 +209,7 @@ public class Instagram {
 									.getString("username"));
 							extObj = new HashMap<>();
 							extObj.put("external_id", "cif-media-" + parentMedia);
-							extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+							extObj.put("message", caption);
 							extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i)
 									.getString("timestamp").replace("+0000", "Z"));
 
@@ -220,7 +227,7 @@ public class Instagram {
 							displayObject = new HashMap<>();
 							displayInfo = new HashMap<>();
 							displayObject.put("media_caption",
-									allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+									caption);
 							displayInfo.put("type", "cif-caption-" + parentMedia);
 							displayInfo.put("data", displayObject);
 							displayArray.add(displayInfo);
@@ -270,7 +277,7 @@ public class Instagram {
 									displayObject = new HashMap<>();
 									displayInfo = new HashMap<>();
 									displayObject.put("media_caption",
-											allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+											caption);
 									displayInfo.put("type", "cif-caption-" + parentMedia);
 									displayInfo.put("data", displayObject);
 									displayArray.add(displayInfo);
@@ -367,6 +374,13 @@ public class Instagram {
 				} else {
 					for (int i = 0; i < allMedia.getJSONArray("data").length(); i++) {
 						if (extResource.size() < 200) {
+							String caption = "";
+							try {
+								caption = allMedia.getJSONArray("data").getJSONObject(i).getString("caption");
+							} catch (JSONException e) {
+								e.printStackTrace();
+								caption = "Post without caption..";
+							}
 							String parentMedia = allMedia.getJSONArray("data").getJSONObject(i).getString("id") + "-"
 									+ igId;
 							HashMap<String, String> author = new HashMap<>();
@@ -376,7 +390,7 @@ public class Instagram {
 									.getString("username"));
 							extObj = new HashMap<>();
 							extObj.put("external_id", "cif-media-" + parentMedia);
-							extObj.put("message", allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+							extObj.put("message", caption);
 							extObj.put("created_at", allMedia.getJSONArray("data").getJSONObject(i)
 									.getString("timestamp").replace("+0000", "Z"));
 
@@ -394,7 +408,7 @@ public class Instagram {
 							displayObject = new HashMap<>();
 							displayInfo = new HashMap<>();
 							displayObject.put("media_caption",
-									allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+									caption);
 							displayInfo.put("type", "cif-caption-" + parentMedia);
 							displayInfo.put("data", displayObject);
 							displayArray.add(displayInfo);
@@ -444,7 +458,7 @@ public class Instagram {
 									displayObject = new HashMap<>();
 									displayInfo = new HashMap<>();
 									displayObject.put("media_caption",
-											allMedia.getJSONArray("data").getJSONObject(i).getString("caption"));
+											caption);
 									displayInfo.put("type", "cif-caption-" + parentMedia);
 									displayInfo.put("data", displayObject);
 									displayArray.add(displayInfo);
